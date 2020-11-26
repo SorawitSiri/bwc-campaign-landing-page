@@ -5,6 +5,7 @@ import RegisterComponent from "../register";
 import PromotionComponent from "../promotion";
 import CalculaterComponent from "../calculater";
 import CheckInformationComponent from "../check_information";
+import FooterComponant from "../footer";
 // import ReactGA from 'react-ga';
 import styles from './index.module.scss';
 
@@ -47,7 +48,10 @@ const HomeRevoComponent = () => {
                     <CheckInformationComponent dataContent={RevoData}/>
                 </section>
                 
-
+                {/* Check Infomation of Car */}
+                <section>
+                    <FooterComponant />
+                </section>
             </main>
         </>
     )

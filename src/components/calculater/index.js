@@ -9,66 +9,105 @@ import yaris2020_img from './yaris2020.png';
 
 import dataToyotaYaris from '../home/yaris.json';
 import dataToyotaRevo from '../home_revo/revo.json';
-
 import { ReactComponent as IconArrow } from './icon-arrow.svg';
+
+function currencyFormat(num) {
+    num = parseFloat(num);
+    return (num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'))
+}
 
 const CalculaterComponent = (props) => {
     const imageCars = [yaris2020, yarisAtiv2020, yarisAtiv2020]
     const { values, setFieldValue } = useFormikContext();
-    const [ modelCar, setModelCar ] = useState(["Entry", "Sport", "Sport Premium", "Sport Premium (Black Roof)"]);
-    const [ colorCar, setColorCar ] = useState([
-                        "Attitude Black Mica",
-                        "Citrus Mica Metallic / Black Roof",
-                        "Cyan Metallic / Black Roof",
-                        "Gray Metallic",
-                        "Platinum White Pearl",
-                        "Platinum White Pearl / Black Roof",
-                        "Red Mica Metallic / Black Roof",
-                        "Silver Metallic"
-                    ]);
+    const [ masterData, setMasterData ] = useState(props.dataContent.yaris);
 
     useEffect(() => {
         const setPriceCar = () => {
-            if (values.series === "Yaris 2020" && values.model !== "0" && values.color !== "0") {
-                let _price = 549000.00;
-                if (values.model === "Entry") {
-                    _price = 549000.00
+            var pathname = window.location.pathname;
+            var dataToyota = {};
+            if (pathname === "/toyota-revo") {
+                dataToyota = dataToyotaRevo;
+                if (values.series === dataToyota.model[0] && values.model !== "0" && values.color !== "0") {
+                    console.log("values.series", values.series);
+                    console.log("dataToyota.model[0]", dataToyota.model[0]);
+                    setMasterData(props.dataContent.yaris);
+                    let _price = 549000.00;
+                    if (values.model === dataToyota.yaris.subModel[0]) { _price = dataToyota.yaris.price[0] }
+                    else if (values.model === dataToyota.yaris.subModel[1]) { _price = dataToyota.yaris.price[1] }
+                    else if (values.model === dataToyota.yaris.subModel[2]) { _price = dataToyota.yaris.price[2] }
+                    else if (values.model === dataToyota.yaris.subModel[3]) { _price = dataToyota.yaris.price[3] }
+                    else if (values.model === dataToyota.yaris.subModel[4]) { _price = dataToyota.yaris.price[4] }
+                    else if (values.model === dataToyota.yaris.subModel[5]) { _price = dataToyota.yaris.price[5]}
+                    else { _price = dataToyota.yaris.price[6] }
+                    let _installments = setInstallments(_price)
+                    setMonth(_price, _installments)
+                    setFieldValue("price", _price + " บาท", false);
                 }
-                else if (values.model === "Sport") {
-                    _price = 609000.00
-                }
-                else if (values.model === "Sport Premium") {
-                    _price = 679000.00
+                else if (values.series === dataToyota.model[1] && values.model !== "0" && values.color !== "0") {
+                    setMasterData(props.dataContent.yarisAtiv);
+                    console.log("values.series", values.series);
+                    console.log("dataToyota.model[1]", dataToyota.model[1]);
+                    console.log("subModel[0]", values.model);
+                    console.log("dataToyota.yarisAtiv.subModel[0]", dataToyota.yarisAtiv.subModel[0]);
+                    let _price = 539000.00;
+                    if (values.model === dataToyota.yarisAtiv.subModel[0]) { _price = dataToyota.yarisAtiv.price[0] }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[1]) { _price = dataToyota.yarisAtiv.price[1] }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[2]) { _price = dataToyota.yarisAtiv.price[2] }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[3]) { _price = dataToyota.yarisAtiv.price[3] }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[4]) { _price = dataToyota.yarisAtiv.price[4] }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[5]) { _price = dataToyota.yarisAtiv.price[5]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[6]) { _price = dataToyota.yarisAtiv.price[6]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[7]) { _price = dataToyota.yarisAtiv.price[7]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[8]) { _price = dataToyota.yarisAtiv.price[8]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[9]) { _price = dataToyota.yarisAtiv.price[9]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[10]) { _price = dataToyota.yarisAtiv.price[10]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[11]) { _price = dataToyota.yarisAtiv.price[11]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[12]) { _price = dataToyota.yarisAtiv.price[12]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[13]) { _price = dataToyota.yarisAtiv.price[13]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[14]) { _price = dataToyota.yarisAtiv.price[14]}
+                    else if (values.model === dataToyota.yarisAtiv.subModel[15]) { _price = dataToyota.yarisAtiv.price[15]}
+                    else { _price = dataToyota.yarisAtiv.price[16] }
+                    let _installments = setInstallments(_price)
+                    setMonth(_price, _installments)
+                    setFieldValue("price", _price + " บาท", false);
                 }
                 else {
-                    // Sport Premium (Black Roof)
-                    _price = 684000.00
+                    setFieldValue("installments", "- บาท", false);
+                    setFieldValue("installments_per_month", "- บาท/เดือน", false);
+                    setFieldValue("price", "- บาท", false);
                 }
-                let _installments = setInstallments(_price)
-                setMonth(_price, _installments)
-                setFieldValue("price", _price + " บาท", false);
-            }
-            else if (values.series === "Yaris Ativ 2020" && values.model !== "0" && values.color !== "0") {
-                let _price = 539000.00;
-                if (values.model === "Entry") {
-                    _price = 539000.00
-                }
-                else if (values.model === "Sport") {
-                    _price = 599000.00
-                }
-                else {
-                    // Sport Premium
-                    _price = 674000.00
-                }
-                let _installments = setInstallments(_price)
-                setMonth(_price, _installments)
-                setFieldValue("price", _price + " บาท", false);
             }
             else {
-                setFieldValue("installments", "- บาท", false);
-                setFieldValue("installments_per_month", "- บาท/เดือน", false);
-                setFieldValue("price", "- บาท", false);
+                dataToyota = dataToyotaYaris;
+                if (values.series === dataToyota.model[0] && values.model !== "0" && values.color !== "0") {
+                    let _price = 549000.00;
+                    setMasterData(props.dataContent.yaris);
+                    if (values.model === "Entry") { _price = 549000.00 }
+                    else if (values.model === "Sport") { _price = 609000.00 }
+                    else if (values.model === "Sport Premium") { _price = 679000.00 }
+                    else { _price = 684000.00 } // Sport Premium (Black Roof)
+                    let _installments = setInstallments(_price)
+                    setMonth(_price, _installments)
+                    setFieldValue("price", _price + " บาท", false);
+                }
+                else if (values.series === dataToyota.model[1] && values.model !== "0" && values.color !== "0") {
+                    let _price = 539000.00;
+                    setMasterData(props.dataContent.yarisAtiv);
+                    if (values.model === "Entry") { _price = 539000.00 }
+                    else if (values.model === "Sport") { _price = 599000.00 }
+                    else { _price = 674000.00 }// Sport Premium
+                    let _installments = setInstallments(_price)
+                    setMonth(_price, _installments)
+                    setFieldValue("price", _price + " บาท", false);
+                }
+                else {
+                    setFieldValue("installments", "- บาท", false);
+                    setFieldValue("installments_per_month", "- บาท/เดือน", false);
+                    setFieldValue("price", "- บาท", false);
+                }
             }
+
+            
         }
 
         const setInstallments = (_price) => {
@@ -124,16 +163,6 @@ const CalculaterComponent = (props) => {
         }
         setPriceCar();
 
-        if(values.series === "Yaris 2020") {
-            // Yaris
-            setModelCar(props.dataContent.yaris.subModel);
-            setColorCar(props.dataContent.yaris.colorName);
-        }
-        else {
-            // Yaris Ativ
-            setModelCar(props.dataContent.yarisAtiv.subModel);
-            setColorCar(props.dataContent.yarisAtiv.colorName);
-        }
     }, [values.series, values.installments_percent, values.month, values.model, values.color])
     
     return (
@@ -155,8 +184,9 @@ const CalculaterComponent = (props) => {
                                 </div>
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">โมเดล</label>
+                                    {console.log("masterData", masterData)}
                                     <SelectBoxNoImg name="model" values={values} options={
-                                        props.dataContent.yaris.subModel.map((_modelCar) => {
+                                        masterData.subModel.map((_modelCar) => {
                                             return ( { name: _modelCar } )
                                         })
                                     } />
@@ -164,7 +194,7 @@ const CalculaterComponent = (props) => {
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">สี</label>
                                     <SelectBoxNoImg name="color" values={values} options={
-                                        props.dataContent.yaris.colorName.map((_colorCar) => {
+                                        masterData.colorName.map((_colorCar) => {
                                             return ( { name: _colorCar } )
                                         })
                                     } />
@@ -178,11 +208,11 @@ const CalculaterComponent = (props) => {
                         <div className={styles.containerCol}>
                             <div className={`${styles.widthFormInputCol2} ${styles.textPrice}` }>
                                 <h1 htmlFor="stickerConfiguration" className={styles.key}>ราคา</h1>
-                                <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{values.price}</label>
+                                <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{currencyFormat(values.price)}</label>
                             </div>
                             <div className={`${styles.widthFormInputCol2} ${styles.textPrice}`} style={{padding: "0 0 20px 0"}}>
                                 <h1 htmlFor="stickerConfiguration" className={styles.key}>ดาวน์</h1>
-                                <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{values.installments}</label>
+                                <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{currencyFormat(values.installments)}</label>
                             </div>
                             <div className={`${styles.widthFormInputColDownMonth}`}>
                                 <div className={styles.dropdownSelectPercent}>
@@ -216,7 +246,7 @@ const CalculaterComponent = (props) => {
                                     </div>
                                     {/* <label htmlFor="stickerConfiguration" className={styles.boxHighlightKey}>ราคาผ่อนเพียง</label> */}
                                     <div className={styles.boxHighlight}>
-                                        <h4>{isNaN(parseFloat(values.installments_per_month).toFixed(2)) ? "-":parseFloat(values.installments_per_month).toFixed(2)} บาท/เดือน</h4>
+                                        <h4>{isNaN(parseFloat(values.installments_per_month).toFixed(2)) ? "-":currencyFormat(values.installments_per_month)} บาท/เดือน</h4>
                                     </div> 
                                 </div>
                             </div>
@@ -310,12 +340,12 @@ const SelectBoxNoImg = ({ values, name, options }) => {
                         </div>
                     )
                 })}
-                {/* <div className={`${styles.selectBoxValue} `} key={0} >
+                <div className={`${styles.selectBoxValue} `} key={0} >
                     <Field name={name} type="radio" className={styles.selectBoxInput} value="0" id={`${name}-0`}
                         checked={`${values[name]}` === `${0}` ? true : false} />
                     <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 10px"}}>กรุณาเลือก</p>
                     <IconArrow />
-                </div> */}
+                </div>
             </div>
             <ul className={styles.selectBoxList}>
                 {options.map((list, index) => {
@@ -328,9 +358,9 @@ const SelectBoxNoImg = ({ values, name, options }) => {
                         </li>
                     )
                 })}
-                {/* <li key={0}>
+                <li key={0}>
                     <label className={styles.selectBoxOption} htmlFor={`${name}-0`}>กรุณาเลือก</label>
-                </li> */}
+                </li>
                 
             </ul>
         </div>

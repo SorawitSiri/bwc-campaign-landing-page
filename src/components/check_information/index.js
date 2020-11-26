@@ -5,6 +5,11 @@ import styles from './index.module.scss';
 import yaris2020 from './yaris2020.svg';
 import yarisAtiv2020 from './YarisAtiv2020.svg';
 
+function currencyFormat(num) {
+    num = parseFloat(num);
+    return (num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'))
+}
+
 const CalculaterComponent = (props) => {
     const [series, setSeries] = useState(props.dataContent.model[0]);
     const [ model, setModel ] = useState(props.dataContent.yaris.subModel[0]);
@@ -59,32 +64,13 @@ const CalculaterComponent = (props) => {
                                         <img src={yaris2020} alt="." className={styles.previewCar} />
                                         <div className={styles.containerColNoWrap}>
                                             <h3 style={{fontSize:"18px", fontWeight:"900"}}>{_modelCar}</h3>
-                                            <p style={{fontSize:"16px"}}>เริ่มต้น {props.dataContent.priceStart[index]} บาท</p>
+                                            <p style={{fontSize:"16px"}}>เริ่มต้น {currencyFormat(props.dataContent.priceStart[index])} บาท</p>
                                         </div>
                                     </div>
                                 </div>
                             )
                         })
                     }
-                    {/* <div className={`${styles.btnShippingOptionModel} ${series==="yaris2020" && styles.active }`} onClick={() => setSeries("yaris2020")}>
-                        <div className={styles.containerRowNoWrap}>
-                            <img src={yaris2020} alt="." className={styles.previewCar} />
-                            <div className={styles.containerColNoWrap}>
-                                <h3 style={{fontSize:"18px", fontWeight:"900"}}>Yaris 2020</h3>
-                                <p style={{fontSize:"16px"}}>เริ่มต้น 539,000 บาท</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={`${styles.btnShippingOptionModel} ${series==="yarisAtiv2020" && styles.active }`} onClick={() => setSeries("yarisAtiv2020")} >
-                        <div className={styles.containerRowNoWrap}>
-                            <img src={yarisAtiv2020} alt="." className={styles.previewCar} />
-                            <div className={styles.containerColNoWrap}>
-                                <h3 style={{fontSize:"20px", fontSize:"18px"}}>Yaris Ativ 2020</h3>
-                                <p style={{fontSize:"18px"}}>เริ่มต้น 549,000 บาท</p>
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
 
                 <h3 style={{margin:"20px 0"}}>โมเดล</h3>
@@ -97,7 +83,7 @@ const CalculaterComponent = (props) => {
                                     <div className={`${styles.containerColNoWrap} ${styles.modelCar}`} style={{padding:"0px 10px"}}>
                                         <h1 style={{fontSize:"28px", margin:"0px"}}>{_modelCar}</h1>
                                         <div className={styles.containerRow}>
-                                            <p style={{fontSize: "16px"}}>{price[index]} / </p>
+                                            <p style={{fontSize: "16px"}}>{currencyFormat(price[index])} / </p>
                                             <qd style={{fontSize: "16px"}}>&nbsp;เริ่มต้น 10,106 ต่อเดือน</qd>
                                         </div>
                                         <a href="#Calculate" type="button" className={styles.buttonForCal}>คำนวณเงินผ่อน</a>

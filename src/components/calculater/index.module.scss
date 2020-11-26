@@ -333,6 +333,10 @@
     color: black;
     border-radius: 20px;
     background-color: #F0F0F0;
+
+    li {
+        float: none;
+    }
   }
   
   .selectBoxCurrent {

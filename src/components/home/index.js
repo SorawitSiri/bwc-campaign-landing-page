@@ -49,7 +49,7 @@ const HomeComponent = () => {
                 </section>
 
                 {/* Check Infomation of Car */}
-                <section className={styles.section4}>
+                <section>
                     <FooterComponant />
                 </section>
                 
