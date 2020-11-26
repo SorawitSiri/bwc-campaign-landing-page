@@ -7,6 +7,9 @@ import axios from "axios";
 import yaris2020 from './yaris2020.svg';
 import yarisAtiv2020 from './YarisAtiv2020.svg';
 
+import dataToyotaYaris from '../home/yaris.json';
+import dataToyotaRevo from '../home_revo/revo.json';
+
 const RegisterComponent = (props) => {
     const { values } = useFormikContext();
     const imageYaris = [yaris2020, yarisAtiv2020, yarisAtiv2020]
@@ -136,12 +139,22 @@ const postRegister = (values) => {
         })
 }
 
+
+var pathname = window.location.pathname;
+var dataToyota = {};
+if (pathname === "/toyota-revo") {
+    dataToyota = dataToyotaRevo;
+}
+else {
+    dataToyota = dataToyotaYaris;
+}
+
 export const EnhancedRegisterComponent = withFormik({
     mapPropsToValues: () => ({
         name_surname: '',
         phone: '',
         zip: '',
-        select_car: 'Yaris 2020'
+        select_car: dataToyota.model[0]
     }),
     validate: values => {
         const errors = {};
