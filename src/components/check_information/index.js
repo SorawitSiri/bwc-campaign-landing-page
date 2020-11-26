@@ -5,22 +5,42 @@ import styles from './index.module.scss';
 import yaris2020 from './yaris2020.svg';
 import yarisAtiv2020 from './YarisAtiv2020.svg';
 
-const CalculaterComponent = () => {
-    const [series, setSeries] = useState("yaris2020");
-    const [ model, setModel ] = useState("Entry");
-    const [ modelCar, setModelCar ] = useState(["Entry", "Sport", "Sport Premium", "Sport Premium (Black Roof)"]);
-    const [ price, setPrice ] = useState(["549,000.00", "609,000.00", "679,000.00", "684,000.00"]);
+const CalculaterComponent = (props) => {
+    const [series, setSeries] = useState(props.dataContent.model[0]);
+    const [ model, setModel ] = useState(props.dataContent.yaris.subModel[0]);
+    const [ modelCar, setModelCar ] = useState(props.dataContent.yaris.subModel);
+    const [ price, setPrice ] = useState(props.dataContent.yaris.price);
 
     useEffect(() => {
-        if(series === "yaris2020") {
-            // Yaris
-            setModelCar(["Entry", "Sport", "Sport Premium", "Sport Premium (Black Roof)"]);
-            setPrice(["549,000.00", "609,000.00", "679,000.00", "684,000.00"]);
+        var pathname = window.location.pathname;
+        if (pathname === "/toyota-revo") {
+            if(series === "Revo Double Cab 2020") {
+                // Revo Double Cab 
+                setModelCar(props.dataContent.doubleCab.subModel);
+                setPrice(props.dataContent.doubleCab.price);
+            }
+            else if (series === "Revo Smart Cab 2020") {
+                // Revo Smart Cab 
+                setModelCar(props.dataContent.yarisAtiv.subModel);
+                setPrice(props.dataContent.yarisAtiv.price);
+            }
+            else {
+                // Revo Standard Cab 2020
+                setModelCar(props.dataContent.yaris.subModel);
+                setPrice(props.dataContent.yaris.price);
+            }
         }
         else {
-            // Yaris Ativ
-            setModelCar(["Entry", "Sport", "Sport Premium"])
-            setPrice(["539,000.00", "599,000.00", "674,000.00"]);
+            if(series === "Yaris 2020") {
+                // Yaris
+                setModelCar(["Entry", "Sport", "Sport Premium", "Sport Premium (Black Roof)"]);
+                setPrice(props.dataContent.yaris.price);
+            }
+            else {
+                // Yaris Ativ
+                setModelCar(["Entry", "Sport", "Sport Premium"])
+                setPrice(props.dataContent.yarisAtiv.price);
+            }
         }
     }, [series])
 
@@ -31,7 +51,22 @@ const CalculaterComponent = () => {
             <div className={styles.containerCol}>
                 <h3 style={{margin:"20px 0"}}>รุ่นรถที่สนใจ</h3>
                 <div className={styles.containerRow}>
-                    <div className={`${styles.btnShippingOptionModel} ${series==="yaris2020" && styles.active }`} onClick={() => setSeries("yaris2020")}>
+                    {
+                        props.dataContent.model.map((_modelCar, index) => {
+                            return (
+                                <div className={`${styles.btnShippingOptionModel} ${series===props.dataContent.model[index] && styles.active }`} onClick={() => setSeries(props.dataContent.model[index])}>
+                                    <div className={styles.containerRowNoWrap}>
+                                        <img src={yaris2020} alt="." className={styles.previewCar} />
+                                        <div className={styles.containerColNoWrap}>
+                                            <h3 style={{fontSize:"18px", fontWeight:"900"}}>{_modelCar}</h3>
+                                            <p style={{fontSize:"16px"}}>เริ่มต้น {props.dataContent.priceStart[index]} บาท</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                    {/* <div className={`${styles.btnShippingOptionModel} ${series==="yaris2020" && styles.active }`} onClick={() => setSeries("yaris2020")}>
                         <div className={styles.containerRowNoWrap}>
                             <img src={yaris2020} alt="." className={styles.previewCar} />
                             <div className={styles.containerColNoWrap}>
@@ -49,35 +84,28 @@ const CalculaterComponent = () => {
                                 <p style={{fontSize:"18px"}}>เริ่มต้น 549,000 บาท</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 <h3 style={{margin:"20px 0"}}>โมเดล</h3>
                 <div className={styles.containerRow}>
-                    {/* <div style={{flexGrow: 1}}> */}
-                        <img src={yaris2020} alt="." className={styles.previewCarModel} />
-                    {/* </div> */}
-                    {/* <div style={{flexGrow: 3}}> */}
-                    {/* <div className={styles.containerCol}> */}
-                        {/* <div className={styles.containerRow}> */}
-                        {modelCar.map((_modelCar, index) => {
-                            return (
-                                <div key={index} className={`${styles.btnShippingOptionSubModel} ${model===_modelCar ? styles.active:styles.deactive }`} onClick={() => setModel(_modelCar)}>
-                                    <div className={styles.containerRow}>
-                                        <div className={`${styles.containerColNoWrap} ${styles.modelCar}`} style={{padding:"0px 10px"}}>
-                                            <h1 style={{fontSize:"28px", margin:"0px"}}>{_modelCar}</h1>
-                                            <div className={styles.containerRow}>
-                                                <p style={{fontSize: "16px"}}>{price[index]} / </p>
-                                                <qd style={{fontSize: "16px"}}>&nbsp;เริ่มต้น 10,106 ต่อเดือน</qd>
-                                            </div>
-                                            <a href="#Calculate" type="button" className={styles.buttonForCal}>คำนวณเงินผ่อน</a>
+                    <img src={yaris2020} alt="." className={styles.previewCarModel} />
+                    {modelCar.map((_modelCar, index) => {
+                        return (
+                            <div key={index} className={`${styles.btnShippingOptionSubModel} ${model===_modelCar ? styles.active:styles.deactive }`} onClick={() => setModel(_modelCar)}>
+                                <div className={styles.containerRow}>
+                                    <div className={`${styles.containerColNoWrap} ${styles.modelCar}`} style={{padding:"0px 10px"}}>
+                                        <h1 style={{fontSize:"28px", margin:"0px"}}>{_modelCar}</h1>
+                                        <div className={styles.containerRow}>
+                                            <p style={{fontSize: "16px"}}>{price[index]} / </p>
+                                            <qd style={{fontSize: "16px"}}>&nbsp;เริ่มต้น 10,106 ต่อเดือน</qd>
                                         </div>
+                                        <a href="#Calculate" type="button" className={styles.buttonForCal}>คำนวณเงินผ่อน</a>
                                     </div>
                                 </div>
-                            )
-                        })}
-                        {/* </div> */}
-                    {/* </div> */}
+                            </div>
+                        )
+                    })}
                 </div>
                 
                 <Promotion className={styles.promotion}/>

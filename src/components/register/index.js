@@ -9,7 +9,7 @@ import yarisAtiv2020 from './YarisAtiv2020.svg';
 
 const RegisterComponent = (props) => {
     const { values } = useFormikContext();
-    const imageYaris = [yaris2020, yarisAtiv2020]
+    const imageYaris = [yaris2020, yarisAtiv2020, yarisAtiv2020]
     return (
         <Form style={{width: "100%"}}>
             <h2 style={{margin:"30px 20px 10px 20px"}}>ลงทะเบียนรับสิทธ์พิเศษ </h2>

@@ -7,9 +7,13 @@ import yaris2020 from './yaris2020.svg';
 import yarisAtiv2020 from './YarisAtiv2020.svg';
 import yaris2020_img from './yaris2020.png';
 
+import dataToyotaYaris from '../home/yaris.json';
+import dataToyotaRevo from '../home_revo/revo.json';
+
 import { ReactComponent as IconArrow } from './icon-arrow.svg';
 
-const CalculaterComponent = () => {
+const CalculaterComponent = (props) => {
+    const imageCars = [yaris2020, yarisAtiv2020, yarisAtiv2020]
     const { values, setFieldValue } = useFormikContext();
     const [ modelCar, setModelCar ] = useState(["Entry", "Sport", "Sport Premium", "Sport Premium (Black Roof)"]);
     const [ colorCar, setColorCar ] = useState([
@@ -25,7 +29,7 @@ const CalculaterComponent = () => {
 
     useEffect(() => {
         const setPriceCar = () => {
-            if (values.series === "Yaris" && values.model !== "0" && values.color !== "0") {
+            if (values.series === "Yaris 2020" && values.model !== "0" && values.color !== "0") {
                 let _price = 549000.00;
                 if (values.model === "Entry") {
                     _price = 549000.00
@@ -44,7 +48,7 @@ const CalculaterComponent = () => {
                 setMonth(_price, _installments)
                 setFieldValue("price", _price + " บาท", false);
             }
-            else if (values.series === "Yaris Ativ" && values.model !== "0" && values.color !== "0") {
+            else if (values.series === "Yaris Ativ 2020" && values.model !== "0" && values.color !== "0") {
                 let _price = 539000.00;
                 if (values.model === "Entry") {
                     _price = 539000.00
@@ -120,24 +124,15 @@ const CalculaterComponent = () => {
         }
         setPriceCar();
 
-        if(values.series === "Yaris") {
+        if(values.series === "Yaris 2020") {
             // Yaris
-            setModelCar(["Entry", "Sport", "Sport Premium", "Sport Premium (Black Roof)"]);
-            setColorCar([
-                "Attitude Black Mica",
-                "Citrus Mica Metallic / Black Roof",
-                "Cyan Metallic / Black Roof",
-                "Gray Metallic",
-                "Platinum White Pearl",
-                "Platinum White Pearl / Black Roof",
-                "Red Mica Metallic / Black Roof",
-                "Silver Metallic"
-            ]);
+            setModelCar(props.dataContent.yaris.subModel);
+            setColorCar(props.dataContent.yaris.colorName);
         }
         else {
             // Yaris Ativ
-            setModelCar(["Entry", "Sport", "Sport Premium"])
-            setColorCar(["Attitude Black Mica", "Dark Blue Mica Metallic", "Gray Metallic", "Red Mica Metallic", "Silver Metallic", "Platinu Super White"]);
+            setModelCar(props.dataContent.yarisAtiv.subModel);
+            setColorCar(props.dataContent.yarisAtiv.colorName);
         }
     }, [values.series, values.installments_percent, values.month, values.model, values.color])
     
@@ -152,16 +147,16 @@ const CalculaterComponent = () => {
                             <div className={`${styles.widthFormInput}`}>
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">รุ่นรถ</label>
-                                    <SelectBox name="series" values={values} options={[
-                                            { image: yaris2020, name: "Yaris" },
-                                            { image: yarisAtiv2020, name: "Yaris Ativ" }
-                                        ]
+                                    <SelectBox name="series" values={values} options={
+                                        props.dataContent.model.map((_modelCar, index) => {
+                                            return ( { image: imageCars[index], name: _modelCar } )
+                                        })
                                     } />
                                 </div>
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">โมเดล</label>
                                     <SelectBoxNoImg name="model" values={values} options={
-                                        modelCar.map((_modelCar) => {
+                                        props.dataContent.yaris.subModel.map((_modelCar) => {
                                             return ( { name: _modelCar } )
                                         })
                                     } />
@@ -169,7 +164,7 @@ const CalculaterComponent = () => {
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">สี</label>
                                     <SelectBoxNoImg name="color" values={values} options={
-                                        colorCar.map((_colorCar) => {
+                                        props.dataContent.yaris.colorName.map((_colorCar) => {
                                             return ( { name: _colorCar } )
                                         })
                                     } />
@@ -265,7 +260,7 @@ const SelectBox = ({ values, name, options }) => {
                                 checked={`${values[name]}` === `${list.name}` ? true : false} />
                             <p className={styles.selectBoxInputText}>
                                 <img src={yaris2020_img} alt="." />
-                                {list.name}
+                                {list.name.substr(0, list.name.length-4)}
                             </p>
                         </div>
                     )
@@ -284,7 +279,7 @@ const SelectBox = ({ values, name, options }) => {
                         <li onClick={() => setFieldValue("showImageUrl", list.image, false)} key={`${lastIndex}`}>
                             <label className={styles.selectBoxOption} htmlFor={`${name}-${lastIndex}`}>
                                 <img src={list.image} alt="." width="60px" style={{ marginRight: "10px" }} />
-                                {list.name}
+                                {list.name.substr(0, list.name.length-4)}
                             </label>
                         </li>
                     )
@@ -342,12 +337,21 @@ const SelectBoxNoImg = ({ values, name, options }) => {
     )
 };
 
+var pathname = window.location.pathname;
+var dataToyota = {};
+if (pathname === "/toyota-revo") {
+    dataToyota = dataToyotaRevo;
+}
+else {
+    dataToyota = dataToyotaYaris;
+}
+
 export const EnhancedCalculaterComponent = withFormik({
     mapPropsToValues: () => ({
-        series: "Yaris",
-        model: "Entry",
-        color: "Attitude Black Mica",
-        price: "0",
+        series: dataToyota.model[0], //"Yaris 2020",
+        model: dataToyota.yaris.subModel[0],
+        color: dataToyota.yaris.colorName[0],
+        price: dataToyota.yaris.price[0],
         installments: 0,
         installments_percent: "30%",
         month: "84 เดือน",
@@ -355,7 +359,7 @@ export const EnhancedCalculaterComponent = withFormik({
     }),
     validate: values => {
         const errors = {};
-
+        
         if (values.series === "") {
             errors.series = "i18.required";
         }

@@ -5,19 +5,19 @@ import RegisterComponent from "../register";
 import PromotionComponent from "../promotion";
 import CalculaterComponent from "../calculater";
 import CheckInformationComponent from "../check_information";
-import ReactGA from 'react-ga';
+// import ReactGA from 'react-ga';
 import styles from './index.module.scss';
 
 // Data of Toyota Yaris
-import YarisData from './yaris.json';
+import RevoData from './revo.json';
 
-const ga = 'G-PBBL9S80RC';
-ReactGA.initialize(ga);
-// Disable file protocol checking (so that GA will work on Android devices)
-ReactGA.ga('set', 'checkProtocolTask', null);
-ReactGA.pageview('/home_yaris');
+// const ga = 'G-PBBL9S80RC';
+// ReactGA.initialize(ga);
+// // Disable file protocol checking (so that GA will work on Android devices)
+// ReactGA.ga('set', 'checkProtocolTask', null);
+// ReactGA.pageview('/home_yaris');
 
-const HomeComponent = () => {
+const HomeRevoComponent = () => {
     return (
         <>
             <main>
@@ -26,10 +26,10 @@ const HomeComponent = () => {
 
                 {/* RegisterComponent */}
                 <div className={styles.goldText} id="Register">
-                    <RegisterComponent dataContent={YarisData} />
+                    <RegisterComponent dataContent={RevoData} />
                 </div>
                 <section className={styles.registerSection} id="Register"> 
-                    <RegisterComponent dataContent={YarisData} />
+                    <RegisterComponent dataContent={RevoData} />
                 </section>
 
                 {/* Promotion */}
@@ -39,14 +39,15 @@ const HomeComponent = () => {
                 
                 {/* Calculate installment */}
                 <section className={styles.section2} id="Calculate">
-                    <CalculaterComponent dataContent={YarisData}/>
+                    <CalculaterComponent dataContent={RevoData}/>
                 </section>
 
                 {/* Check Infomation of Car */}
                 <section className={styles.section3}>
-                    <CheckInformationComponent dataContent={YarisData}/>
+                    <CheckInformationComponent dataContent={RevoData}/>
                 </section>
                 
+
             </main>
         </>
     )
@@ -59,4 +60,4 @@ const HomeComponent = () => {
 
   gtag('config', 'G-PBBL9S80RC');
 </script> */}
-export default HomeComponent;
+export default HomeRevoComponent;

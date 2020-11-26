@@ -1,5 +1,6 @@
 {
     "model": ["Yaris 2020", "Yaris Ativ 2020"],
+    "priceStart": [549000.00, 539000.00],
     "yaris": {
         "subModel": [ "Entry", "Sport", "Sport Premium", "Sport Premium (Black Roof)"],
         "colorName": [ "Attitude Black Mica", "Citrus Mica Metallic / Black Roof", "Cyan Metallic / Black Roof", "Gray Metallic", "Platinum White Pearl", "Platinum White Pearl / Black Roof", "Red Mica Metallic / Black Roof", "Silver Metallic" ],
