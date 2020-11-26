@@ -69,8 +69,18 @@
   }
 
 .widthFormInput {
+    width: 100%;
+    margin: 30px 0px 30px 30px;
+}
+
+.widthFormInputCol2 {
     width: 290px;
-    // margin: 20px;
+    margin: 0 0 0 30px ;
+}
+
+.widthFormInputColDownMonth {
+    // width: 290px;
+    margin: 0 0 0 30px ;
 }
 
 .formControl {
@@ -237,7 +247,7 @@
     label{
         color: #000000;
         font-size: 16px;
-        display: block;
+        padding-bottom: 10px;
         // border: 3px solid #ce3bf3;
     }
 
@@ -277,8 +287,10 @@
 
     label{
         color: #000000;
-        font-size: 16px;
+        font-size: 21px;
+        font-weight: 900;
         display: block;
+        padding-bottom: 10px;
         // border: 3px solid #ce3bf3;
     }
 
@@ -463,11 +475,16 @@
 
 .boxHighlight {
     background-color: #A70000;
-    border-radius: 10px;
+    border-radius: 20px;
     margin-left: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     color: white;
     background-image: linear-gradient(225deg, #ff0000, #A70000);
+    // min-width: 100px;
+    height: 40px;
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: 900;
 }
 
 .boxHighlightKey {
@@ -476,7 +493,7 @@
 
 .boxHighlightKeyOr {
     padding: 20px 10px;
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .boxHighlightRed {
@@ -485,7 +502,7 @@
     margin: auto 0px auto 0;
     padding: 10px;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
     // border: 1px solid red;
     background-image: linear-gradient(225deg, #ff0000, #A70000);
 }
@@ -503,12 +520,25 @@
 
 .groupContact {
     position: relative;
-    top: -100px;
+    top: -30px;
     // border: 1px solid red;
 }
 
 .textPrice {
-    padding: 40px 0 20px 0;
+    padding: 40px 0 0px 0;
+    display: inline-block;
+    .key {
+        color: #000000;
+        font-size: 20px;
+        font-weight: 1000;
+        display: inline-block;
+    }
+    .value {
+        color: #000000;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    
 }
 
 .btnShippingOption {

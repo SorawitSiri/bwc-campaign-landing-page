@@ -5,8 +5,17 @@ import RegisterComponent from "../register";
 import PromotionComponent from "../promotion";
 import CalculaterComponent from "../calculater";
 import CheckInformationComponent from "../check_information";
-
+import ReactGA from 'react-ga';
 import styles from './index.module.scss';
+
+// Data of Toyota Yaris
+import YarisData from './yaris.json';
+
+const ga = 'G-PBBL9S80RC';
+ReactGA.initialize(ga);
+// Disable file protocol checking (so that GA will work on Android devices)
+ReactGA.ga('set', 'checkProtocolTask', null);
+ReactGA.pageview('/home_yaris');
 
 const HomeComponent = () => {
     return (
@@ -17,10 +26,10 @@ const HomeComponent = () => {
 
                 {/* RegisterComponent */}
                 <div className={styles.goldText} id="Register">
-                    <RegisterComponent />
+                    <RegisterComponent dataContent={YarisData} />
                 </div>
                 <section className={styles.registerSection} id="Register"> 
-                    <RegisterComponent />
+                    <RegisterComponent dataContent={YarisData} />
                 </section>
 
                 {/* Promotion */}
@@ -42,5 +51,12 @@ const HomeComponent = () => {
         </>
     )
 };
+{/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBBL9S80RC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-PBBL9S80RC');
+</script> */}
 export default HomeComponent;

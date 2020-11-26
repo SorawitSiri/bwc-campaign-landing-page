@@ -90,26 +90,30 @@ const CalculaterComponent = () => {
                 setFieldValue("installments", _installments + " บาท", false);
                 return _installments;
             }
+            else {
+                _installments = _price
+                setFieldValue("installments", _installments + " บาท", false);
+            }
             return _installments;
         }
 
         const setMonth = (_price, _installments) => {
             let _balance_price = _price - _installments;
             let _installments_per_month = 0;
-            if (values.month === "24 เดือน") {
-                _installments_per_month = _balance_price/24;
-                setFieldValue("installments_per_month", _installments_per_month + " บาท", false);
-            }
-            else if (values.month === "36 เดือน") {
-                _installments_per_month = _installments/36;
-                setFieldValue("installments_per_month", _installments_per_month + " บาท", false);
-            }
-            else if (values.month === "48 เดือน") {
-                _installments_per_month = _installments/48;
+            if (values.month === "48 เดือน") {
+                _installments_per_month = _balance_price/48;
                 setFieldValue("installments_per_month", _installments_per_month + " บาท", false);
             }
             else if (values.month === "60 เดือน") {
                 _installments_per_month = _installments/60;
+                setFieldValue("installments_per_month", _installments_per_month + " บาท", false);
+            }
+            else if (values.month === "72 เดือน") {
+                _installments_per_month = _installments/72;
+                setFieldValue("installments_per_month", _installments_per_month + " บาท", false);
+            }
+            else if (values.month === "84 เดือน") {
+                _installments_per_month = _installments/84;
                 setFieldValue("installments_per_month", _installments_per_month + " บาท", false);
             }
             return _installments_per_month;
@@ -139,7 +143,7 @@ const CalculaterComponent = () => {
     
     return (
         <div className={`${styles.containerCol}`}>
-            <h2>คำนวณเงินผ่อน </h2>
+            <h2 style={{padding: "20px 20px"}}>คำนวณเงินผ่อน </h2>
             <div className={styles.boxCalculater}>
                 <Form className={`${styles.containerRow}`}>
                     {/* Col #1 */}
@@ -158,24 +162,15 @@ const CalculaterComponent = () => {
                                     <label htmlFor="stickerConfiguration">โมเดล</label>
                                     <SelectBoxNoImg name="model" values={values} options={
                                         modelCar.map((_modelCar) => {
-                                            return (
-                                                {
-                                                    name: _modelCar
-                                                }
-                                            )
+                                            return ( { name: _modelCar } )
                                         })
                                     } />
                                 </div>
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">สี</label>
-                                    colorCar
                                     <SelectBoxNoImg name="color" values={values} options={
                                         colorCar.map((_colorCar) => {
-                                            return (
-                                                {
-                                                    name: _colorCar
-                                                }
-                                            )
+                                            return ( { name: _colorCar } )
                                         })
                                     } />
                                 </div>
@@ -186,42 +181,48 @@ const CalculaterComponent = () => {
                     {/* Col #2 */}
                     <div className={styles.containerRowDiv} style={{flexGrow: 1}}>
                         <div className={styles.containerCol}>
-                            <div className={styles.textPrice}>
-                                <label htmlFor="stickerConfiguration">ราคา</label>
-                                <label htmlFor="stickerConfiguration" style={{padding: "0 0 0 20px"}}>{values.price}</label>
+                            <div className={`${styles.widthFormInputCol2} ${styles.textPrice}` }>
+                                <h1 htmlFor="stickerConfiguration" className={styles.key}>ราคา</h1>
+                                <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{values.price}</label>
                             </div>
-                            <div>
-                                <label htmlFor="stickerConfiguration">ดาวน์</label>
-                                <label htmlFor="stickerConfiguration" style={{padding: "0 0 0 20px"}}>{values.installments}</label>
+                            <div className={`${styles.widthFormInputCol2} ${styles.textPrice}`} style={{padding: "0 0 20px 0"}}>
+                                <h1 htmlFor="stickerConfiguration" className={styles.key}>ดาวน์</h1>
+                                <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{values.installments}</label>
                             </div>
-                            <div className={`${styles.widthFormInput}`}>
+                            <div className={`${styles.widthFormInputColDownMonth}`}>
                                 <div className={styles.dropdownSelectPercent}>
                                     <SelectBoxNoImg name="installments_percent" values={values} options={[
+                                            { name: "0%" },
                                             { name: "10%" },
                                             { name: "15%" },
                                             { name: "20%" },
+                                            { name: "25%" },
                                             { name: "30%" }
                                         ]
                                     } />
                                 </div>
-                                <div className={styles.containerRowNoWrap}>
-                                    <label htmlFor="stickerConfiguration" style={{margin: "30px 0 0 0", width:"100px"}}>จำนวนเดือน</label>
+                                <div className={styles.containerRowNoWrap} >
+                                    <div className={`${styles.widthFormInputColDownMonth} ${styles.textPrice}`} style={{padding: "0 0 20px 0", margin: "0px"}}>
+                                        <h1 htmlFor="stickerConfiguration" className={styles.key} style={{padding:"15px 10px 0 0"}}>จำนวนเดือน</h1>
+                                    </div>
                                     <div className={styles.dropdownSelect}>
                                         <SelectBoxNoImg name="month" values={values} options={[
-                                                { name: "24 เดือน" },
-                                                { name: "36 เดือน" },
                                                 { name: "48 เดือน" },
                                                 { name: "60 เดือน" },
+                                                { name: "72 เดือน" },
+                                                { name: "84 เดือน" },
                                             ]
                                         } />
                                     </div>
                                 </div>
-                                
-                            </div>
-                            <div>
                                 <div className={styles.containerRow}>
-                                    <label htmlFor="stickerConfiguration" className={styles.boxHighlightKey}>ราคาผ่อนเพียง</label>
-                                    <div className={styles.boxHighlight}>{isNaN(parseFloat(values.installments_per_month).toFixed(2)) ? "- บาท":parseFloat(values.installments_per_month).toFixed(2)}</div>
+                                    <div className={`${styles.widthFormInputColDownMonth} ${styles.textPrice}`} style={{padding: "0 0 20px 0", margin: "0px"}}>
+                                        <h1 htmlFor="stickerConfiguration" className={styles.key} style={{padding:"15px 10px 0 0"}}>ราคาผ่อนเพียง</h1>
+                                    </div>
+                                    {/* <label htmlFor="stickerConfiguration" className={styles.boxHighlightKey}>ราคาผ่อนเพียง</label> */}
+                                    <div className={styles.boxHighlight}>
+                                        <h4>{isNaN(parseFloat(values.installments_per_month).toFixed(2)) ? "-":parseFloat(values.installments_per_month).toFixed(2)} บาท/เดือน</h4>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -269,12 +270,12 @@ const SelectBox = ({ values, name, options }) => {
                         </div>
                     )
                 })}
-                <div className={styles.selectBoxValue} key={0}>
+                {/* <div className={styles.selectBoxValue} key={0}>
                     <Field name={name} type="radio" className={styles.selectBoxInput} value="0" id={`${name}-0`}
                         checked={`${values[name]}` === `${0}` ? true : false} />
                     <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 10px"} }>กรุณาเลือก</p>
                     <IconArrow />
-                </div>
+                </div> */}
             </div>
             <ul className={styles.selectBoxList}>
                 {options.map((list, index) => {
@@ -288,9 +289,9 @@ const SelectBox = ({ values, name, options }) => {
                         </li>
                     )
                 })}
-                <li key={0}>
+                {/* <li key={0}>
                     <label className={styles.selectBoxOption} htmlFor={`${name}-0`}>กรุณาเลือก</label>
-                </li>
+                </li> */}
                 
             </ul>
         </div>
@@ -305,7 +306,7 @@ const SelectBoxNoImg = ({ values, name, options }) => {
                 {options.map((list, index) => {
                     let lastIndex = index + 1;
                     return (
-                        <div className={styles.selectBoxValue} key={`${lastIndex}`}>
+                        <div className={`${styles.selectBoxValue}`} key={`${lastIndex}`} >
                             <Field name={name} type="radio" className={styles.selectBoxInput} value={list.name} id={`${name}-${lastIndex}`}
                                 checked={`${values[name]}` === `${list.name}` ? true : false} />
                             <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 10px"} }>
@@ -314,27 +315,27 @@ const SelectBoxNoImg = ({ values, name, options }) => {
                         </div>
                     )
                 })}
-                <div className={styles.selectBoxValue} key={0}>
+                {/* <div className={`${styles.selectBoxValue} `} key={0} >
                     <Field name={name} type="radio" className={styles.selectBoxInput} value="0" id={`${name}-0`}
                         checked={`${values[name]}` === `${0}` ? true : false} />
-                    <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 10px"} }>กรุณาเลือก</p>
+                    <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 10px"}}>กรุณาเลือก</p>
                     <IconArrow />
-                </div>
+                </div> */}
             </div>
             <ul className={styles.selectBoxList}>
                 {options.map((list, index) => {
                     let lastIndex = index + 1;
                     return (
-                        <li onClick={() => setFieldValue("showImageUrl", list.image, false)} key={`${lastIndex}`}>
+                        <li onClick={() => setFieldValue("showImageUrl", list.image, false)} key={`${lastIndex}`} >
                             <label className={styles.selectBoxOption} htmlFor={`${name}-${lastIndex}`}>
                                 {list.name}
                             </label>
                         </li>
                     )
                 })}
-                <li key={0}>
+                {/* <li key={0}>
                     <label className={styles.selectBoxOption} htmlFor={`${name}-0`}>กรุณาเลือก</label>
-                </li>
+                </li> */}
                 
             </ul>
         </div>
@@ -343,13 +344,13 @@ const SelectBoxNoImg = ({ values, name, options }) => {
 
 export const EnhancedCalculaterComponent = withFormik({
     mapPropsToValues: () => ({
-        series: "0",
-        model: "0",
-        color: "0",
+        series: "Yaris",
+        model: "Entry",
+        color: "Attitude Black Mica",
         price: "0",
         installments: 0,
-        installments_percent: "10%",
-        month: "24 เดือน",
+        installments_percent: "30%",
+        month: "84 เดือน",
         installments_per_month: "-"
     }),
     validate: values => {

@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 const CalculaterComponent = () => {
     return (
         <div className={styles.sectionPromotion}>
-            <h2>ดูข้อมูลรถ</h2>
+            <h2 style={{padding: "20px 20px"}}>ดูข้อมูลรถ</h2>
             <Promotion className={styles.promotion}/>
         </div>
     )

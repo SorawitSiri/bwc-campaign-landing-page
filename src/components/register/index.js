@@ -7,43 +7,56 @@ import axios from "axios";
 import yaris2020 from './yaris2020.svg';
 import yarisAtiv2020 from './YarisAtiv2020.svg';
 
-const RegisterComponent = () => {
+const RegisterComponent = (props) => {
     const { values } = useFormikContext();
-
+    const imageYaris = [yaris2020, yarisAtiv2020]
     return (
         <Form style={{width: "100%"}}>
-        <h2 style={{margin:"10px"}}>ลงทะเบียนรับสิทธ์พิเศษ </h2>
+            <h2 style={{margin:"30px 20px 10px 20px"}}>ลงทะเบียนรับสิทธ์พิเศษ </h2>
             <div className={styles.boxReister}>
                 <div className={styles.containerRow}>
+                    {/* Name */}
                     <div className={`${styles.formControl} ${styles.widthFormInput}`}>
-                        <p>ชื่อ-นามสกุล</p>
-                        <p className={styles.mustField}>*</p> 
-                        <ErrorMessage name="name_surname" render={msg => <span className="error">{msg}</span>} />
-                        <Field name="name_surname" type="text" placeholder="" />
+                        <div className={styles.containerRow}>
+                            <p>ชื่อ-นามสกุล</p>
+                            <p className={styles.mustField}>&nbsp;*</p> 
+                            <ErrorMessage name="name_surname" render={msg => <span className="error">{msg}</span>} />
+                        </div>
+                        <Field name="name_surname" style={{ height: "40px" }} type="text" placeholder="" />
                     </div>
                     
-                    
+                    {/* Phone */}
                     <div className={`${styles.formControl} ${styles.widthFormInput}`}>
-                        <p>เบอร์โทรศัพท์*</p>
-                        <p className={styles.mustField}>*</p> 
-                        <ErrorMessage name="phone" render={msg => <span className="error">{msg}</span>} />
-                        <Field name="phone" type="number" placeholder="" />
+                        <div className={styles.containerRow}>
+                            <p>เบอร์โทรศัพท์</p>
+                            <p className={styles.mustField}>&nbsp;*</p> 
+                            <ErrorMessage name="phone" render={msg => <span className="error">{msg}</span>} />
+                        </div>
+                        <Field name="phone" type="number" style={{ height: "40px" }} placeholder="" />
                     </div>
                     
+                    {/* Zip Code */}
                     <div className={`${styles.formControl} ${styles.widthFormInput}`}>
-                        <p>รหัสไปรษณีย์</p>
-                        <p className={styles.mustField}>*</p> 
-                        <ErrorMessage name="zip" render={msg => <span className="error">{msg}</span>} />
-                        <Field name="zip" type="number" placeholder="" />
+                        <div className={styles.containerRow}>
+                            <p>รหัสไปรษณีย์</p>
+                            <p className={styles.mustField}>&nbsp;*</p> 
+                            <ErrorMessage name="zip" render={msg => <span className="error">{msg}</span>} />
+                        </div>
+                        <Field name="zip" type="number" style={{ height: "40px" }} placeholder="" />
                     </div>
                     
-
                 </div>
-                <p>รุ่นรถที่สนใจ*</p>
-                <SelectCar name="select_car" id="select_car" values={values} options={[
-                    { value: "Yaris 2020", name: "Yaris 2020", logoBank: yaris2020 },
-                    { value: "Yaris Ativ 2020", name: "Yaris Ativ 2020", logoBank: yarisAtiv2020 },
-                ]} />
+                <div className={styles.containerRow}>
+                    <div className={` ${styles.carSelect}`}>
+                        <p>รุ่นรถที่สนใจ*</p>
+                    </div>
+                    <SelectCar name="select_car" id="select_car" values={values} options={
+                        props.dataContent.model.map((_modelCar, index) => {
+                            return ({ value: _modelCar, name: _modelCar, imageCar: imageYaris[index] })
+                        })
+                    } />
+                </div>
+                
 
                 <div className={styles.containerRowEnd}>
                     <a href="#Calculate" className={styles.buttonCalInstallment} style={{margin: "0 10px", fontSize:"12px"}}><b>คำนวณเงินผ่อน</b></a>
@@ -73,7 +86,7 @@ const SelectCar = ({ values, name, options }) => {
                             <label className={styles.selectBoxOption} htmlFor={`${name}-${index + 1}`}>
                                 <div className={styles.containerRow}>
                                     <div className={styles.containerColCar}>
-                                        <img src={list.logoBank} alt="Product" className={styles.logoBank} />
+                                        <img src={list.imageCar} alt="Cars" />
                                     </div>
                                 </div>
                                 <div className={`${styles.containerRow} ${styles.center}`}>
@@ -149,8 +162,8 @@ export const EnhancedRegisterComponent = withFormik({
     },
     handleSubmit: (values, { props }) => {
         // alert("Donut")
-        // alert(JSON.stringify(values, null, 2));
-        postRegister(values);
+        alert(JSON.stringify(values, null, 2));
+        // postRegister(values);
         // setTimeout(() => {
         //   alert(JSON.stringify(values, null, 2));
         //   setSubmitting(false);
