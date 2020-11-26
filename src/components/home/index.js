@@ -5,6 +5,7 @@ import RegisterComponent from "../register";
 import PromotionComponent from "../promotion";
 import CalculaterComponent from "../calculater";
 import CheckInformationComponent from "../check_information";
+import FooterComponant from "../footer";
 import ReactGA from 'react-ga';
 import styles from './index.module.scss';
 
@@ -45,6 +46,11 @@ const HomeComponent = () => {
                 {/* Check Infomation of Car */}
                 <section className={styles.section3}>
                     <CheckInformationComponent dataContent={YarisData}/>
+                </section>
+
+                {/* Check Infomation of Car */}
+                <section className={styles.section4}>
+                    <FooterComponant />
                 </section>
                 
             </main>
