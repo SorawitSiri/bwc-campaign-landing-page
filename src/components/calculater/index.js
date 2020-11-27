@@ -22,14 +22,43 @@ const CalculaterComponent = (props) => {
     const [ masterData, setMasterData ] = useState(props.dataContent.yaris);
 
     useEffect(() => {
+        var pathname = window.location.pathname;
+        var dataToyota = {};
+        if (pathname === "/toyota-revo") {
+            dataToyota = dataToyotaRevo;
+            if (values.series === dataToyota.model[0]) {
+                setFieldValue("model", dataToyota.yaris.subModel[0]);
+                setFieldValue("color", dataToyota.yaris.colorName[0]);
+            }
+            else if (values.series === dataToyota.model[1]) {
+                setFieldValue("model", dataToyota.yarisAtiv.subModel[0]);
+                setFieldValue("color", dataToyota.yarisAtiv.colorName[0]);
+            }
+            else {
+                setFieldValue("model", dataToyota.doubleCab.subModel[0]);
+                setFieldValue("color", dataToyota.doubleCab.colorName[0]);
+            }
+        }
+        else {
+            dataToyota = dataToyotaYaris;
+            if (values.series === dataToyota.model[0]) {
+                setFieldValue("model", dataToyota.yaris.subModel[0]);
+                setFieldValue("color", dataToyota.yaris.colorName[0]);
+            }
+            else {
+                setFieldValue("model", dataToyota.yarisAtiv.subModel[0]);
+                setFieldValue("color", dataToyota.yarisAtiv.colorName[0]);
+            }
+
+        }
+    }, [values.series])
+    useEffect(() => {
         const setPriceCar = () => {
             var pathname = window.location.pathname;
             var dataToyota = {};
             if (pathname === "/toyota-revo") {
                 dataToyota = dataToyotaRevo;
                 if (values.series === dataToyota.model[0] && values.model !== "0" && values.color !== "0") {
-                    console.log("values.series", values.series);
-                    console.log("dataToyota.model[0]", dataToyota.model[0]);
                     setMasterData(props.dataContent.yaris);
                     let _price = 549000.00;
                     if (values.model === dataToyota.yaris.subModel[0]) { _price = dataToyota.yaris.price[0] }
@@ -39,16 +68,13 @@ const CalculaterComponent = (props) => {
                     else if (values.model === dataToyota.yaris.subModel[4]) { _price = dataToyota.yaris.price[4] }
                     else if (values.model === dataToyota.yaris.subModel[5]) { _price = dataToyota.yaris.price[5]}
                     else { _price = dataToyota.yaris.price[6] }
+                    if (values.color === "Super White") { _price = _price - 7000; }
                     let _installments = setInstallments(_price)
                     setMonth(_price, _installments)
                     setFieldValue("price", _price + " บาท", false);
                 }
                 else if (values.series === dataToyota.model[1] && values.model !== "0" && values.color !== "0") {
                     setMasterData(props.dataContent.yarisAtiv);
-                    console.log("values.series", values.series);
-                    console.log("dataToyota.model[1]", dataToyota.model[1]);
-                    console.log("subModel[0]", values.model);
-                    console.log("dataToyota.yarisAtiv.subModel[0]", dataToyota.yarisAtiv.subModel[0]);
                     let _price = 539000.00;
                     if (values.model === dataToyota.yarisAtiv.subModel[0]) { _price = dataToyota.yarisAtiv.price[0] }
                     else if (values.model === dataToyota.yarisAtiv.subModel[1]) { _price = dataToyota.yarisAtiv.price[1] }
@@ -65,8 +91,43 @@ const CalculaterComponent = (props) => {
                     else if (values.model === dataToyota.yarisAtiv.subModel[12]) { _price = dataToyota.yarisAtiv.price[12]}
                     else if (values.model === dataToyota.yarisAtiv.subModel[13]) { _price = dataToyota.yarisAtiv.price[13]}
                     else if (values.model === dataToyota.yarisAtiv.subModel[14]) { _price = dataToyota.yarisAtiv.price[14]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[15]) { _price = dataToyota.yarisAtiv.price[15]}
-                    else { _price = dataToyota.yarisAtiv.price[16] }
+                    else { _price = dataToyota.yarisAtiv.price[15] }
+
+                    // Color
+                    if (values.color === "Emotional Red II") { _price = _price + 10000; }
+                    else if (values.color === "Super White II") { _price = _price - 7000; }
+                    else if (values.color === "White Pearl Crystal") { _price = _price + 10000; }
+                    let _installments = setInstallments(_price)
+                    setMonth(_price, _installments)
+                    setFieldValue("price", _price + " บาท", false);
+                }
+                else if (values.series === dataToyota.model[2] && values.model !== "0" && values.color !== "0") {
+                    setMasterData(props.dataContent.doubleCab);
+                    let _price = 539000.00;
+
+                    if (values.model === dataToyota.doubleCab.subModel[0]) { _price = dataToyota.doubleCab.price[0] }
+                    else if (values.model === dataToyota.doubleCab.subModel[1]) { _price = dataToyota.doubleCab.price[1] }
+                    else if (values.model === dataToyota.doubleCab.subModel[2]) { _price = dataToyota.doubleCab.price[2] }
+                    else if (values.model === dataToyota.doubleCab.subModel[3]) { _price = dataToyota.doubleCab.price[3] }
+                    else if (values.model === dataToyota.doubleCab.subModel[4]) { _price = dataToyota.doubleCab.price[4] }
+                    else if (values.model === dataToyota.doubleCab.subModel[5]) { _price = dataToyota.doubleCab.price[5]}
+                    else if (values.model === dataToyota.doubleCab.subModel[6]) { _price = dataToyota.doubleCab.price[6]}
+                    else if (values.model === dataToyota.doubleCab.subModel[7]) { _price = dataToyota.doubleCab.price[7]}
+                    else if (values.model === dataToyota.doubleCab.subModel[8]) { _price = dataToyota.doubleCab.price[8]}
+                    else if (values.model === dataToyota.doubleCab.subModel[9]) { _price = dataToyota.doubleCab.price[9]}
+                    else if (values.model === dataToyota.doubleCab.subModel[10]) { _price = dataToyota.doubleCab.price[10]}
+                    else if (values.model === dataToyota.doubleCab.subModel[11]) { _price = dataToyota.doubleCab.price[11]}
+                    else if (values.model === dataToyota.doubleCab.subModel[12]) { _price = dataToyota.doubleCab.price[12]}
+                    else if (values.model === dataToyota.doubleCab.subModel[13]) { _price = dataToyota.doubleCab.price[13]}
+                    else if (values.model === dataToyota.doubleCab.subModel[14]) { _price = dataToyota.doubleCab.price[14]}
+                    else if (values.model === dataToyota.doubleCab.subModel[15]) { _price = dataToyota.doubleCab.price[15] }
+                    else { _price = dataToyota.doubleCab.price[16] }
+
+                    // Color
+                    if (values.color === "Emotional Red II") { _price = _price + 10000; }
+                    else if (values.color === "Super White II") { _price = _price - 7000; }
+                    else if (values.color === "White Pearl Crystal") { _price = _price + 10000; }
+
                     let _installments = setInstallments(_price)
                     setMonth(_price, _installments)
                     setFieldValue("price", _price + " บาท", false);
@@ -135,7 +196,7 @@ const CalculaterComponent = (props) => {
             }
             else {
                 _installments = _price
-                setFieldValue("installments", _installments + " บาท", false);
+                setFieldValue("installments", 0 + " บาท", false);
             }
             return _installments;
         }
@@ -172,7 +233,7 @@ const CalculaterComponent = (props) => {
                 <Form className={`${styles.containerRow}`}>
                     {/* Col #1 */}
                     <div className={styles.containerRowDiv} style={{flexGrow: 1}}>
-                        <div className={styles.containerCol}>
+                        <div className={styles.containerColWidth}>
                             <div className={`${styles.widthFormInput}`}>
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">รุ่นรถ</label>
@@ -184,7 +245,6 @@ const CalculaterComponent = (props) => {
                                 </div>
                                 <div className={styles.dropdownSelect}>
                                     <label htmlFor="stickerConfiguration">โมเดล</label>
-                                    {console.log("masterData", masterData)}
                                     <SelectBoxNoImg name="model" values={values} options={
                                         masterData.subModel.map((_modelCar) => {
                                             return ( { name: _modelCar } )
@@ -205,12 +265,12 @@ const CalculaterComponent = (props) => {
 
                     {/* Col #2 */}
                     <div className={styles.containerRowDiv} style={{flexGrow: 1}}>
-                        <div className={styles.containerCol}>
+                        <div className={styles.containerColWidth}>
                             <div className={`${styles.widthFormInputCol2} ${styles.textPrice}` }>
                                 <h1 htmlFor="stickerConfiguration" className={styles.key}>ราคา</h1>
                                 <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{currencyFormat(values.price)}</label>
                             </div>
-                            <div className={`${styles.widthFormInputCol2} ${styles.textPrice}`} style={{padding: "0 0 20px 0"}}>
+                            <div className={`${styles.widthFormInputCol2} ${styles.textPrice}`} style={{padding: "0"}}>
                                 <h1 htmlFor="stickerConfiguration" className={styles.key}>ดาวน์</h1>
                                 <label htmlFor="stickerConfiguration" className={styles.value} style={{padding: "0 0 0 20px"}}>{currencyFormat(values.installments)}</label>
                             </div>
@@ -226,9 +286,11 @@ const CalculaterComponent = (props) => {
                                         ]
                                     } />
                                 </div>
+                            </div>
+                            <div className={`${styles.widthFormInputColDownMonthPercent}`}>
                                 <div className={styles.containerRowNoWrap} >
-                                    <div className={`${styles.widthFormInputColDownMonth} ${styles.textPrice}`} style={{padding: "0 0 20px 0", margin: "0px"}}>
-                                        <h1 htmlFor="stickerConfiguration" className={styles.key} style={{padding:"15px 10px 0 0"}}>จำนวนเดือน</h1>
+                                    <div className={`${styles.widthFormInputColDownMonthTitel} ${styles.textPrice}`} style={{padding: "0 0 20px 0", margin: "0px"}}>
+                                        <h1 htmlFor="stickerConfiguration" className={styles.key} style={{padding:"15px 10px 0 0", width:"120px"}}>จำนวนเดือน</h1>
                                     </div>
                                     <div className={styles.dropdownSelect}>
                                         <SelectBoxNoImg name="month" values={values} options={[
@@ -240,11 +302,10 @@ const CalculaterComponent = (props) => {
                                         } />
                                     </div>
                                 </div>
-                                <div className={styles.containerRow}>
+                                <div className={styles.containerRowNoWrap}>
                                     <div className={`${styles.widthFormInputColDownMonth} ${styles.textPrice}`} style={{padding: "0 0 20px 0", margin: "0px"}}>
-                                        <h1 htmlFor="stickerConfiguration" className={styles.key} style={{padding:"15px 10px 0 0"}}>ราคาผ่อนเพียง</h1>
+                                        <h1 htmlFor="stickerConfiguration" className={styles.keyTotal} style={{padding:"15px 10px 0 0", width:"140px"}}>ราคาผ่อนเพียง</h1>
                                     </div>
-                                    {/* <label htmlFor="stickerConfiguration" className={styles.boxHighlightKey}>ราคาผ่อนเพียง</label> */}
                                     <div className={styles.boxHighlight}>
                                         <h4>{isNaN(parseFloat(values.installments_per_month).toFixed(2)) ? "-":currencyFormat(values.installments_per_month)} บาท/เดือน</h4>
                                     </div> 
@@ -255,7 +316,7 @@ const CalculaterComponent = (props) => {
 
                     {/* Col #3 */}
                     <div className={styles.containerRowDiv} style={{flexGrow: 8}}>
-                        <div className={styles.containerCol}>
+                        <div className={styles.containerColWidth}>
                             <div className={`${styles.containerRowCenter}`}>
                                 <img src={yaris2020_img} alt="." className={styles.previewCar} />
                             </div>
@@ -285,9 +346,9 @@ const SelectBox = ({ values, name, options }) => {
                 {options.map((list, index) => {
                     let lastIndex = index + 1;
                     return (
-                        <div className={styles.selectBoxValue} key={`${lastIndex}`}>
+                        <div className={styles.selectBoxValue} key={`${lastIndex}`} >
                             <Field name={name} type="radio" className={styles.selectBoxInput} value={list.name} id={`${name}-${lastIndex}`}
-                                checked={`${values[name]}` === `${list.name}` ? true : false} />
+                                checked={`${values[name]}` === `${list.name}` ? true : false}/>
                             <p className={styles.selectBoxInputText}>
                                 <img src={yaris2020_img} alt="." />
                                 {list.name.substr(0, list.name.length-4)}
@@ -334,18 +395,18 @@ const SelectBoxNoImg = ({ values, name, options }) => {
                         <div className={`${styles.selectBoxValue}`} key={`${lastIndex}`} >
                             <Field name={name} type="radio" className={styles.selectBoxInput} value={list.name} id={`${name}-${lastIndex}`}
                                 checked={`${values[name]}` === `${list.name}` ? true : false} />
-                            <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 10px"} }>
+                            <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 0px"} }>
                                 {list.name}
                             </p>
                         </div>
                     )
                 })}
-                <div className={`${styles.selectBoxValue} `} key={0} >
+                {/* <div className={`${styles.selectBoxValue} `} key={0} >
                     <Field name={name} type="radio" className={styles.selectBoxInput} value="0" id={`${name}-0`}
                         checked={`${values[name]}` === `${0}` ? true : false} />
                     <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 10px"}}>กรุณาเลือก</p>
                     <IconArrow />
-                </div>
+                </div> */}
             </div>
             <ul className={styles.selectBoxList}>
                 {options.map((list, index) => {
@@ -358,9 +419,9 @@ const SelectBoxNoImg = ({ values, name, options }) => {
                         </li>
                     )
                 })}
-                <li key={0}>
+                {/* <li key={0}>
                     <label className={styles.selectBoxOption} htmlFor={`${name}-0`}>กรุณาเลือก</label>
-                </li>
+                </li> */}
                 
             </ul>
         </div>

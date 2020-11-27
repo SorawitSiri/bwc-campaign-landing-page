@@ -1,6 +1,6 @@
 import React from "react";
 // import { withRouter } from 'react-router';
-import { ReactComponent as Banner } from './banner.svg';
+// import { ReactComponent as Banner } from './banner.svg';
 import RegisterComponent from "../register";
 import PromotionComponent from "../promotion";
 import CalculaterComponent from "../calculater";
@@ -11,6 +11,9 @@ import styles from './index.module.scss';
 
 // Data of Toyota Yaris
 import YarisData from './yaris.json';
+
+// import remoPomote from './pomotion_revo.gif';
+import yarisPomote from './promotion_yaris.gif';
 
 const ga = 'G-PBBL9S80RC';
 ReactGA.initialize(ga);
@@ -23,7 +26,7 @@ const HomeComponent = () => {
         <>
             <main>
                 {/* Banner */}
-                <Banner className={styles.banner} />
+                <img src={yarisPomote} alt="." className={styles.banner} />
 
                 {/* RegisterComponent */}
                 <div className={styles.goldText} id="Register">
