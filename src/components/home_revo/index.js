@@ -6,7 +6,7 @@ import PromotionComponent from "../promotion";
 import CalculaterComponent from "../calculater";
 import CheckInformationComponent from "../check_information";
 import FooterComponant from "../footer";
-// import ReactGA from 'react-ga';
+import ReactGA from 'react-ga';
 import styles from './index.module.scss';
 
 // Data of Toyota Yaris
@@ -14,11 +14,28 @@ import RevoData from './revo.json';
 import remoPomote from './promotion_revo.gif';
 // import yarisPomote from './pomotion_yaris.gif';
 
-// const ga = 'G-PBBL9S80RC';
-// ReactGA.initialize(ga);
-// // Disable file protocol checking (so that GA will work on Android devices)
-// ReactGA.ga('set', 'checkProtocolTask', null);
-// ReactGA.pageview('/home_yaris');
+const ga = 'G-PBBL9S80RC';
+ReactGA.initialize(ga);
+// Disable file protocol checking (so that GA will work on Android devices)
+ReactGA.ga('set', 'checkProtocolTask', null);
+ReactGA.pageview('/toyota-revo');
+
+//global variable
+window.data_customer = {
+    name: "",
+    mobile_no: "",
+    zipcode: "",
+    model: "",
+    model_no: "",
+    finance_model: "",
+    finance_submodel: "",
+    finance_price: "",
+    finance_down_percent: "",
+    finance_down_amount: "",
+    finance_period: "",
+    finance_per_month: "",
+    is_company: 1
+};
 
 const HomeRevoComponent = () => {
     return (

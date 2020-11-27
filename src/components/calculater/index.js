@@ -9,7 +9,7 @@ import yaris2020_img from './yaris2020.png';
 
 import dataToyotaYaris from '../home/yaris.json';
 import dataToyotaRevo from '../home_revo/revo.json';
-import { ReactComponent as IconArrow } from './icon-arrow.svg';
+// import { ReactComponent as IconArrow } from './icon-arrow.svg';
 
 function currencyFormat(num) {
     num = parseFloat(num);
@@ -24,6 +24,7 @@ const CalculaterComponent = (props) => {
     useEffect(() => {
         var pathname = window.location.pathname;
         var dataToyota = {};
+        
         if (pathname === "/toyota-revo") {
             dataToyota = dataToyotaRevo;
             if (values.series === dataToyota.model[0]) {
@@ -49,9 +50,11 @@ const CalculaterComponent = (props) => {
                 setFieldValue("model", dataToyota.yarisAtiv.subModel[0]);
                 setFieldValue("color", dataToyota.yarisAtiv.colorName[0]);
             }
-
         }
+        
     }, [values.series])
+
+    // Compute Price
     useEffect(() => {
         const setPriceCar = () => {
             var pathname = window.location.pathname;
@@ -61,37 +64,110 @@ const CalculaterComponent = (props) => {
                 if (values.series === dataToyota.model[0] && values.model !== "0" && values.color !== "0") {
                     setMasterData(props.dataContent.yaris);
                     let _price = 549000.00;
-                    if (values.model === dataToyota.yaris.subModel[0]) { _price = dataToyota.yaris.price[0] }
-                    else if (values.model === dataToyota.yaris.subModel[1]) { _price = dataToyota.yaris.price[1] }
-                    else if (values.model === dataToyota.yaris.subModel[2]) { _price = dataToyota.yaris.price[2] }
-                    else if (values.model === dataToyota.yaris.subModel[3]) { _price = dataToyota.yaris.price[3] }
-                    else if (values.model === dataToyota.yaris.subModel[4]) { _price = dataToyota.yaris.price[4] }
-                    else if (values.model === dataToyota.yaris.subModel[5]) { _price = dataToyota.yaris.price[5]}
-                    else { _price = dataToyota.yaris.price[6] }
+                    if (values.model === dataToyota.yaris.subModel[0]) { 
+                        _price = dataToyota.yaris.price[0]
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[0];
+                    }
+                    else if (values.model === dataToyota.yaris.subModel[1]) { 
+                        _price = dataToyota.yaris.price[1] 
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[1];
+                    }
+                    else if (values.model === dataToyota.yaris.subModel[2]) { 
+                        _price = dataToyota.yaris.price[2] 
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[2];
+                    }
+                    else if (values.model === dataToyota.yaris.subModel[3]) { 
+                        _price = dataToyota.yaris.price[3]
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[3];
+                    }
+                    else if (values.model === dataToyota.yaris.subModel[4]) { 
+                        _price = dataToyota.yaris.price[4] 
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[4];
+                    }
+                    else if (values.model === dataToyota.yaris.subModel[5]) { 
+                        _price = dataToyota.yaris.price[5]
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[5];
+                    }
+                    else { 
+                        _price = dataToyota.yaris.price[6];
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[6];
+                    }
                     if (values.color === "Super White") { _price = _price - 7000; }
                     let _installments = setInstallments(_price)
                     setMonth(_price, _installments)
                     setFieldValue("price", _price + " บาท", false);
+                    window.data_customer.finance_model = values.series;
+                    window.data_customer.finance_submodel = values.model;
+                    window.data_customer.finance_price = _price;
+                    window.data_customer.finance_down_amount = _installments;
                 }
                 else if (values.series === dataToyota.model[1] && values.model !== "0" && values.color !== "0") {
                     setMasterData(props.dataContent.yarisAtiv);
                     let _price = 539000.00;
-                    if (values.model === dataToyota.yarisAtiv.subModel[0]) { _price = dataToyota.yarisAtiv.price[0] }
-                    else if (values.model === dataToyota.yarisAtiv.subModel[1]) { _price = dataToyota.yarisAtiv.price[1] }
-                    else if (values.model === dataToyota.yarisAtiv.subModel[2]) { _price = dataToyota.yarisAtiv.price[2] }
-                    else if (values.model === dataToyota.yarisAtiv.subModel[3]) { _price = dataToyota.yarisAtiv.price[3] }
-                    else if (values.model === dataToyota.yarisAtiv.subModel[4]) { _price = dataToyota.yarisAtiv.price[4] }
-                    else if (values.model === dataToyota.yarisAtiv.subModel[5]) { _price = dataToyota.yarisAtiv.price[5]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[6]) { _price = dataToyota.yarisAtiv.price[6]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[7]) { _price = dataToyota.yarisAtiv.price[7]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[8]) { _price = dataToyota.yarisAtiv.price[8]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[9]) { _price = dataToyota.yarisAtiv.price[9]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[10]) { _price = dataToyota.yarisAtiv.price[10]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[11]) { _price = dataToyota.yarisAtiv.price[11]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[12]) { _price = dataToyota.yarisAtiv.price[12]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[13]) { _price = dataToyota.yarisAtiv.price[13]}
-                    else if (values.model === dataToyota.yarisAtiv.subModel[14]) { _price = dataToyota.yarisAtiv.price[14]}
-                    else { _price = dataToyota.yarisAtiv.price[15] }
+                    if (values.model === dataToyota.yarisAtiv.subModel[0]) { 
+                        _price = dataToyota.yarisAtiv.price[0] 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[0];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[1]) { 
+                        _price = dataToyota.yarisAtiv.price[1] 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[1];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[2]) { 
+                        _price = dataToyota.yarisAtiv.price[2] 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[2];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[3]) { 
+                        _price = dataToyota.yarisAtiv.price[3] 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[3];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[4]) { 
+                        _price = dataToyota.yarisAtiv.price[4] 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[4];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[5]) {
+                        _price = dataToyota.yarisAtiv.price[5]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[5];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[6]) { 
+                        _price = dataToyota.yarisAtiv.price[6]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[6];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[7]) { 
+                        _price = dataToyota.yarisAtiv.price[7]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[7];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[8]) { 
+                        _price = dataToyota.yarisAtiv.price[8]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[8];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[9]) { 
+                        _price = dataToyota.yarisAtiv.price[9]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[9];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[10]) { 
+                        _price = dataToyota.yarisAtiv.price[10]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[10];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[11]) { 
+                        _price = dataToyota.yarisAtiv.price[11]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[11];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[12]) { 
+                        _price = dataToyota.yarisAtiv.price[12]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[12];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[13]) { 
+                        _price = dataToyota.yarisAtiv.price[13]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[13];
+                    }
+                    else if (values.model === dataToyota.yarisAtiv.subModel[14]) { 
+                        _price = dataToyota.yarisAtiv.price[14]
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[14];
+                    }
+                    else { 
+                        _price = dataToyota.yarisAtiv.price[15] 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[15];
+                    }
 
                     // Color
                     if (values.color === "Emotional Red II") { _price = _price + 10000; }
@@ -100,28 +176,84 @@ const CalculaterComponent = (props) => {
                     let _installments = setInstallments(_price)
                     setMonth(_price, _installments)
                     setFieldValue("price", _price + " บาท", false);
+                    
+                    window.data_customer.finance_model = values.series;
+                    window.data_customer.finance_submodel = values.model;
+                    window.data_customer.finance_price = _price;
+                    window.data_customer.finance_down_amount = _installments;
                 }
                 else if (values.series === dataToyota.model[2] && values.model !== "0" && values.color !== "0") {
                     setMasterData(props.dataContent.doubleCab);
                     let _price = 539000.00;
 
-                    if (values.model === dataToyota.doubleCab.subModel[0]) { _price = dataToyota.doubleCab.price[0] }
-                    else if (values.model === dataToyota.doubleCab.subModel[1]) { _price = dataToyota.doubleCab.price[1] }
-                    else if (values.model === dataToyota.doubleCab.subModel[2]) { _price = dataToyota.doubleCab.price[2] }
-                    else if (values.model === dataToyota.doubleCab.subModel[3]) { _price = dataToyota.doubleCab.price[3] }
-                    else if (values.model === dataToyota.doubleCab.subModel[4]) { _price = dataToyota.doubleCab.price[4] }
-                    else if (values.model === dataToyota.doubleCab.subModel[5]) { _price = dataToyota.doubleCab.price[5]}
-                    else if (values.model === dataToyota.doubleCab.subModel[6]) { _price = dataToyota.doubleCab.price[6]}
-                    else if (values.model === dataToyota.doubleCab.subModel[7]) { _price = dataToyota.doubleCab.price[7]}
-                    else if (values.model === dataToyota.doubleCab.subModel[8]) { _price = dataToyota.doubleCab.price[8]}
-                    else if (values.model === dataToyota.doubleCab.subModel[9]) { _price = dataToyota.doubleCab.price[9]}
-                    else if (values.model === dataToyota.doubleCab.subModel[10]) { _price = dataToyota.doubleCab.price[10]}
-                    else if (values.model === dataToyota.doubleCab.subModel[11]) { _price = dataToyota.doubleCab.price[11]}
-                    else if (values.model === dataToyota.doubleCab.subModel[12]) { _price = dataToyota.doubleCab.price[12]}
-                    else if (values.model === dataToyota.doubleCab.subModel[13]) { _price = dataToyota.doubleCab.price[13]}
-                    else if (values.model === dataToyota.doubleCab.subModel[14]) { _price = dataToyota.doubleCab.price[14]}
-                    else if (values.model === dataToyota.doubleCab.subModel[15]) { _price = dataToyota.doubleCab.price[15] }
-                    else { _price = dataToyota.doubleCab.price[16] }
+                    if (values.model === dataToyota.doubleCab.subModel[0]) { 
+                        _price = dataToyota.doubleCab.price[0] 
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[0];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[1]) { 
+                        _price = dataToyota.doubleCab.price[1] 
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[1];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[2]) { 
+                        _price = dataToyota.doubleCab.price[2] 
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[2];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[3]) { 
+                        _price = dataToyota.doubleCab.price[3] 
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[3];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[4]) { 
+                        _price = dataToyota.doubleCab.price[4] 
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[4];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[5]) { 
+                        _price = dataToyota.doubleCab.price[5]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[5];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[6]) { 
+                        _price = dataToyota.doubleCab.price[6]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[6];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[7]) { 
+                        _price = dataToyota.doubleCab.price[7]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[7];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[8]) { 
+                        _price = dataToyota.doubleCab.price[8]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[8];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[9]) { 
+                        _price = dataToyota.doubleCab.price[9]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[9];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[10]) { 
+                        _price = dataToyota.doubleCab.price[10]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[10];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[11]) { 
+                        _price = dataToyota.doubleCab.price[11]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[11];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[12]) { 
+                        _price = dataToyota.doubleCab.price[12]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[12];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[13]) { 
+                        _price = dataToyota.doubleCab.price[13]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[13];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[14]) { 
+                        _price = dataToyota.doubleCab.price[14]
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[14];
+                    }
+                    else if (values.model === dataToyota.doubleCab.subModel[15]) { 
+                        _price = dataToyota.doubleCab.price[15] 
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[15];
+                    }
+                    else { 
+                        _price = dataToyota.doubleCab.price[16] 
+                        window.data_customer.model_no = dataToyota.doubleCab.modelNo[16];
+                    }
 
                     // Color
                     if (values.color === "Emotional Red II") { _price = _price + 10000; }
@@ -131,6 +263,10 @@ const CalculaterComponent = (props) => {
                     let _installments = setInstallments(_price)
                     setMonth(_price, _installments)
                     setFieldValue("price", _price + " บาท", false);
+                    window.data_customer.finance_model = values.series;
+                    window.data_customer.finance_submodel = values.model;
+                    window.data_customer.finance_price = _price;
+                    window.data_customer.finance_down_amount = _installments;
                 }
                 else {
                     setFieldValue("installments", "- บาท", false);
@@ -143,23 +279,52 @@ const CalculaterComponent = (props) => {
                 if (values.series === dataToyota.model[0] && values.model !== "0" && values.color !== "0") {
                     let _price = 549000.00;
                     setMasterData(props.dataContent.yaris);
-                    if (values.model === "Entry") { _price = 549000.00 }
-                    else if (values.model === "Sport") { _price = 609000.00 }
-                    else if (values.model === "Sport Premium") { _price = 679000.00 }
-                    else { _price = 684000.00 } // Sport Premium (Black Roof)
+                    if (values.model === "Entry") { 
+                        _price = 549000.00 
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[0];
+                    }
+                    else if (values.model === "Sport") { 
+                        _price = 609000.00 
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[1];
+                    }
+                    else if (values.model === "Sport Premium") { 
+                        _price = 679000.00 
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[2];
+                    }
+                    else { 
+                        _price = 684000.00 
+                        window.data_customer.model_no = dataToyota.yaris.modelNo[3];
+                    } // Sport Premium (Black Roof)
                     let _installments = setInstallments(_price)
                     setMonth(_price, _installments)
                     setFieldValue("price", _price + " บาท", false);
+                    window.data_customer.finance_model = values.series;
+                    window.data_customer.finance_submodel = values.model;
+                    window.data_customer.finance_price = _price;
+                    window.data_customer.finance_down_amount = _installments;
                 }
                 else if (values.series === dataToyota.model[1] && values.model !== "0" && values.color !== "0") {
                     let _price = 539000.00;
                     setMasterData(props.dataContent.yarisAtiv);
-                    if (values.model === "Entry") { _price = 539000.00 }
-                    else if (values.model === "Sport") { _price = 599000.00 }
-                    else { _price = 674000.00 }// Sport Premium
+                    if (values.model === "Entry") { 
+                        _price = 539000.00 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[0];
+                    }
+                    else if (values.model === "Sport") { 
+                        _price = 599000.00 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[1];
+                    }
+                    else { 
+                        _price = 674000.00 
+                        window.data_customer.model_no = dataToyota.yarisAtiv.modelNo[2];
+                    }// Sport Premium
                     let _installments = setInstallments(_price)
                     setMonth(_price, _installments)
                     setFieldValue("price", _price + " บาท", false);
+                    window.data_customer.finance_model = values.series;
+                    window.data_customer.finance_submodel = values.model;
+                    window.data_customer.finance_price = _price;
+                    window.data_customer.finance_down_amount = _installments;
                 }
                 else {
                     setFieldValue("installments", "- บาท", false);
@@ -167,8 +332,6 @@ const CalculaterComponent = (props) => {
                     setFieldValue("price", "- บาท", false);
                 }
             }
-
-            
         }
 
         const setInstallments = (_price) => {
@@ -220,10 +383,13 @@ const CalculaterComponent = (props) => {
                 _installments_per_month = _installments/84;
                 setFieldValue("installments_per_month", _installments_per_month + " บาท", false);
             }
+            window.data_customer.finance_per_month = _installments_per_month;
             return _installments_per_month;
         }
         setPriceCar();
 
+        window.data_customer.finance_down_percent = values.installments_percent
+        window.data_customer.finance_period = values.month;
     }, [values.series, values.installments_percent, values.month, values.model, values.color])
     
     return (

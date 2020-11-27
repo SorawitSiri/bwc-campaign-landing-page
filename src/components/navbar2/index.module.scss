@@ -1,0 +1,272 @@
+@import "../../variables";
+
+.topBar{
+    height: 39px;
+    padding-right: 20px;
+
+    background: 20px;
+
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    button{
+        min-width: 78px;
+        height: 27px;
+        margin: 3px;
+        padding: 0px 5px;
+        font-size: 20px;
+
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-style: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover{
+            color: 20px;
+        }
+
+        svg{
+            margin-right: 3px;
+        }
+    }
+}
+
+.navBar {
+    position: relative;
+    height: 97px;
+    padding: 0 20px 0 5vw;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    svg{
+        cursor: pointer;
+    }
+
+    .navLinks {
+        display: flex;
+        align-items: center;
+
+        list-style: none;
+
+        a {
+            margin: 1.5vw;
+
+            font-size: 20px;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+
+            color: #000000;
+
+            &:hover{
+                color: 20px;
+            }
+        }
+
+        button {
+            width: 144px;
+            height: 50px;
+
+            // margin-left: 0.5vw;
+
+            cursor: pointer;
+            background: #FFFFFF;
+            border: 2px solid #009473;
+            border-radius: 12px;
+
+            a{
+                margin: 0;
+            }
+        }
+    }
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+
+    z-index: 1;
+
+    div {
+        // z-index: 2;
+        width: 25px;
+        height: 3px;
+        background-color: 20px;
+        margin: 5px;
+
+        transition: all 0.25s ease-in-out;
+
+    }
+}
+
+
+@media screen and (max-width: 768px){
+    // body {
+    //     overflow-x: hidden;
+    // }
+
+    .navBar{
+        // justify-content: space-around;
+
+        // display:flex;
+
+        .navLinks {
+            // border: 5px solid yellow;
+            // align-items: start;
+            position: absolute;
+            width: 100vw;
+            // left: 0px;
+            top: 0px;
+            right: 0px;
+            height: calc(100vh - 97px - 39px);
+            height: calc(100vh - 39px);
+            opacity: 1;
+            
+            
+            z-index: 1;
+            // top: 136px;
+            // top: 97px;
+
+            background-color: #FFF;
+            background-color: #009473;
+            background-color: rgba(0, 148, 115, 0.9);
+
+            display: flex;
+            
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+
+            transform: translateX(100%);
+            transition: transform 0.25s ease-out;
+            transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            // li {
+            //     opacity: 0;
+            // }
+            a {
+                color: #FFF;
+            }
+            button a {
+                color: #000;
+            }
+            
+            
+        }
+
+        .burger {
+            display: block;
+        }
+
+        .navActive {
+            transform: translateX(0%);
+        }
+
+        .navInactive {
+            // https://stackoverflow.com/a/3695826
+            // Read ~2 answers for understanding and comparison
+            // tl;dr: display = gone entirely; visibility = invisible but presents
+            display: none;
+        }
+
+    }
+    
+}
+
+.toggle .line1 {
+    background-color: #FFF;
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2 {
+    opacity: 0;
+}
+.toggle .line3 {
+    background-color: #FFF;
+    transform: rotate(45deg) translate(-5px,-6px);
+}
+
+
+.dropbtn {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    font-weight: 900;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 20px;
+    border: 1px;
+
+    h3 {
+        padding: 10px 20px;
+        font-weight: 900;
+        font-size: 16px;
+    }
+}
+
+.dropdownContent a {
+    color: rgb(0, 0, 0);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownContent a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdownContent {display: block;}
+
+.dropdown:hover .dropbtn {
+    background-color: #ddd;
+    border-radius: 20px;
+}
+
+// li {
+//     float: left;
+// }
+  
+// li a {
+//     display: block;
+//     padding: 20px;
+//     background-color: #ffffff;
+//     color: black;
+//     font-weight: 900;
+// }
+
+// li a:hover {
+//     background-color: rgb(235, 235, 235);
+//     border-radius: 15px;
+//     // padding: 20px 20px;
+// }
+
+// .boxCar {
+//     background-color: white;
+//     border-radius: 20px;
+//     padding: 10px;
+//     // width: 300px;
+//     // height: 300px;
+//     // display: relative;
+
+// }

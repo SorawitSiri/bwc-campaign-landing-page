@@ -19,7 +19,24 @@ const ga = 'G-PBBL9S80RC';
 ReactGA.initialize(ga);
 // Disable file protocol checking (so that GA will work on Android devices)
 ReactGA.ga('set', 'checkProtocolTask', null);
-ReactGA.pageview('/home_yaris');
+ReactGA.pageview('/toyota-yaris');
+
+//global variable
+window.data_customer = {
+    name: "",
+    mobile_no: "",
+    zipcode: "",
+    model: "",
+    model_no: "",
+    finance_model: "",
+    finance_submodel: "",
+    finance_price: 0,
+    finance_down_percent: 0,
+    finance_down_amount: 0,
+    finance_period: 0,
+    finance_per_month: 0,
+    is_company: 0
+};
 
 const HomeComponent = () => {
     return (
