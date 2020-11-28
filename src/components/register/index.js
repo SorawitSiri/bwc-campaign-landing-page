@@ -76,7 +76,7 @@ const RegisterComponent = (props) => {
                                 <p>ลูกค้าองค์กร</p>
                             </div>
                             <div style={{padding: "2px 10px"}} >
-                                <Field name="is_company" type="checkbox" />
+                                <Field name="is_company" type="checkbox" value="1" />
                             </div>
                         </div>
                     </>
@@ -102,14 +102,14 @@ const SelectCar = ({ values, name, options }) => {
                 )
             })}
 
-            <ul className={`${styles.containerRow}`}>
+            <ul className={`${styles.containerNoRow}`}>
                 {options.map((list, index) => {
                     return (
                         <li className={`${styles.optionShipping} ${styles.boxRadiusSmall} ${`${values.select_car}` === `${list.value}` ? styles.active : styles.deactive}`}  key={`${name}-${index + 1}`}>
                             <label className={styles.selectBoxOption} htmlFor={`${name}-${index + 1}`}>
                                 <div className={styles.containerRow}>
                                     <div className={styles.containerColCar}>
-                                        <img src={list.imageCar} alt="Cars" />
+                                        <img className={styles.chooseCar} src={list.imageCar} alt="Cars" />
                                     </div>
                                 </div>
                                 <div className={`${styles.containerRow} ${styles.center}`}>
@@ -134,26 +134,32 @@ const SelectCar = ({ values, name, options }) => {
 };
 
 const postRegister = (values) => {
+    var _finance_model = window.data_customer.finance_model;
+    _finance_model = _finance_model.substring(0, _finance_model.length-5);
+    
+    var is_company_data = 0;
+    if ( values.is_company[0] === "1") { is_company_data = 1; }
+    else { values.is_company_data = 0; }
     let dataPost = {
         "name": values.name_surname,
         "mobile_no": values.phone,
         "zipcode": values.zip,
         "model": values.select_car,
         "model_no": window.data_customer.model_no,
-        "finance_model": window.data_customer.finance_model,
+        "finance_model": _finance_model,
         "finance_submodel": window.data_customer.finance_submodel,
         "finance_price": window.data_customer.finance_price,
         "finance_down_percent": parseInt(window.data_customer.finance_down_percent),
         "finance_down_amount": parseFloat(window.data_customer.finance_down_amount),
         "finance_period": parseInt(window.data_customer.finance_period),
         "finance_per_month": parseFloat(window.data_customer.finance_per_month),
-        "is_company": 0
+        "is_company": is_company_data
     }
 
     // alert(JSON.stringify(dataPost, null, 2));
     console.log("dataPost", dataPost)
     
-    const resPOST = axios.post(CONFIG_API.API_HOST + `/api/register`, dataPost)
+    axios.post(CONFIG_API.API_HOST + `/api/register`, dataPost)
         .then(res => {
             console.log("Complete", res);
             alert("ส่งข้อมูลสำเร็จแล้ว");
@@ -163,7 +169,7 @@ const postRegister = (values) => {
             console.log(err.response.data.error);
             alert("ส่งข้อมูลไม่สำเร็จ");
         })
-    console.log("resPOST",resPOST.data);
+    // console.log("resPOST",resPOST.data);
 }
 
 
@@ -181,7 +187,7 @@ export const EnhancedRegisterComponent = withFormik({
         name_surname: '',
         phone: '',
         zip: '',
-        is_company: '',
+        is_company: [],
         select_car: dataToyota.model[0]
     }),
     validate: values => {
@@ -190,9 +196,7 @@ export const EnhancedRegisterComponent = withFormik({
         window.data_customer.mobile_no = values.phone;
         window.data_customer.zipcode = values.zip;
         window.data_customer.model = values.select_car;
-        // window.data_customer.model_no = "";
-
-        // console.log("data_customer Validate", window.data_customer);
+        window.data_customer.model_no = "Yaris MC 2020";
         if (values.name_surname === "") {
             errors.name_surname = "กรุณากรอกหน่อยนะคร้าบ";
         }
@@ -204,7 +208,9 @@ export const EnhancedRegisterComponent = withFormik({
         if (values.zip === "") {
             errors.zip = "กรุณากรอกหน่อยนะคร้าบ";
         }
-
+        
+        // console.log("data_customer Validate", window.data_customer);
+        console.log("values.is_company Validate", values.is_company);
         return errors;
     },
     handleSubmit: (values, { props }) => {

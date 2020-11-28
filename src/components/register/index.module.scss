@@ -24,6 +24,12 @@
     flex-wrap: wrap;
 }
 
+.containerNoRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .containerRowEnd {
     display: flex;
     flex-direction: row;
@@ -265,4 +271,63 @@ input[type=number] {
 
 .selectCar {
     color: black;
+}
+
+.chooseCar {
+    width: 100%;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+    .active {
+        div {
+            color: white;
+        }
+    
+        .boxNameCar {
+            margin: 0px;
+            display: flex;
+            flex-direction: column;
+            background-color: #D00000;
+            border-radius: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+    }
+
+    .deactive {
+        div {
+            color: #000000;
+        }
+
+        .boxNameCar {
+            margin: 0px;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+    }
+
+    .chooseCar {
+        width: 90px;
+    }
+
+    .containerCol {
+        padding: 10px 0px;
+    }
+
+
+    .boxRadiusSmall {
+        margin: 2px 2px;
+        padding: 5px 0;
+        
+    }
 }

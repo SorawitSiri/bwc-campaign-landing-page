@@ -429,6 +429,15 @@ const CalculaterComponent = (props) => {
                         </div>
                     </div>
 
+                    {/* Col #3 IMG CAR #1 Mobile App */}
+                    <div className={`${styles.containerRowDiv} ${styles.divPreviewCarMobile}`} style={{flexGrow: 8}}>
+                        <div className={styles.containerColWidth}>
+                            <div className={`${styles.containerRowCenter}`}>
+                                <img src={yaris2020_img} alt="." className={styles.previewCar} />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Col #2 */}
                     <div className={styles.containerRowDiv} style={{flexGrow: 1}}>
                         <div className={styles.containerColWidth}>
@@ -480,8 +489,8 @@ const CalculaterComponent = (props) => {
                         </div>
                     </div>
 
-                    {/* Col #3 */}
-                    <div className={styles.containerRowDiv} style={{flexGrow: 8}}>
+                    {/* Col #3 IMG CAR #2*/}
+                    <div className={`${styles.containerRowDiv} ${styles.divPreviewCarDestop}`} style={{flexGrow: 8}}>
                         <div className={styles.containerColWidth}>
                             <div className={`${styles.containerRowCenter}`}>
                                 <img src={yaris2020_img} alt="." className={styles.previewCar} />
@@ -496,6 +505,27 @@ const CalculaterComponent = (props) => {
                                     <div className={styles.boxHighlightGreen}>Add line@</div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Col #3 IMG CAR #2*/}
+                    {/* <div className={`${styles.containerRowDiv} ${styles.divPreviewCarMobile}`} style={{flexGrow: 8}}>
+                        <div className={styles.containerColWidth}>
+                            <div className={`${styles.containerRowCenter}`}>
+                                <img src={yaris2020_img} alt="." className={styles.previewCar} />
+                            </div>
+                        </div>
+                    </div> */}
+
+                    {/* Col #3 Contact */}
+                    <div className={`${styles.containerRowContact} ${styles.divPreviewCarMobile}`}>
+                        <div className={styles.boxHighlightRed} style={{padding: "10px"}}>
+                            โทร 02-095-3222
+                        </div>
+                        <div className={`${styles.containerRowRight}`}>
+                            <a href={"#Register"} className={styles.boxHighlightRed}>ลงทะเบียน</a>
+                            <div className={styles.boxHighlightKeyOr}>หรือ</div>
+                            <div className={styles.boxHighlightGreen}>Add line@</div>
                         </div>
                     </div>
                 </Form>

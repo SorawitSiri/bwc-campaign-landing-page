@@ -34,15 +34,23 @@
 }
 
 .containerRowDiv {
-    // width: 300px;
+    // width: 100%;
     // border: 1px solid red;
+}
+
+.containerRowContact {
+    width: 100%;
+    // border: 1px solid red;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 .containerRowRight {
     display: flex;
     flex-direction: row;
     width: 100%;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
     justify-content: flex-end;
     // border: 1px solid red;
 }
@@ -490,6 +498,16 @@
     width: 450px;
 }
 
+.divPreviewCarMobile {
+    width: 450px;
+    display: none;
+}
+
+.divPreviewCarDestop {
+    width: 450px;
+    display: block;
+}
+
 @media only screen and (max-width: 600px) {
     .previewCar {
         width: 100%;
@@ -539,35 +557,6 @@
     font-size: 12px;
     background-image: linear-gradient(225deg, #00ff37, #00A725);
     // border: 1px solid red;
-}
-
-
-@media only screen and (max-width: 1000px) {
-    .containerColWidth {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    .widthFormInputCol2 {
-        width: 100%;
-        margin: 0 0 0 30px ;
-    }
-    .widthFormInputColDownMonthPercent {
-        width: 100%;
-        margin: 0 0 0 30px ;
-    }
-    .boxHighlight {
-        width: 100%;
-        margin: 10px 20px;
-        font-size: 15px;
-        text-align: center;
-    }
-    .containerRowNoWrap {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
-    }
 }
 
 .groupContact {
@@ -629,5 +618,128 @@
     background-color: #009473;
     div, h4 {
         color: white;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .divPreviewCarMobile {
+        width: 100%;
+        display: flex;
+        padding: 5px 20px; 
+    }
+    .divPreviewCarDestop {
+        width: 450px;
+        display: none;
+    }
+
+    .textPrice {
+        padding: 5px 0 0px 0;    
+    }
+
+    .widthFormInput {
+        width: 100%;
+        margin: 5px 0px 5px 0px;
+    }
+
+    .boxHighlightRed {
+        margin: 5px 0px 5px 0;
+        padding: 15px;
+        display: relative;
+        right: 10px;
+        // width: 100p;
+        // border: 3px solid green;
+    }
+
+    .boxHighlightGreen {
+        margin: 5px 0px 5px 0;
+        padding: 15px;
+        display: relative;
+        right: 20px;
+    }
+
+    .groupContact {
+        position: static;
+        display: flex;
+        justify-content: flex-end;
+        // top: 0px;
+        // padding-right: 0px;
+        // border: 1px solid red;
+    }
+
+    .boxCalculater {
+        padding: 0 0 10px 0;
+    }
+
+    .containerRowRight {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        // flex-wrap: wrap;
+        justify-content: flex-end;
+        // border: 1px solid red;
+        margin: 0 2px;
+    }
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+
+    .divPreviewCarMobile {
+        width: 100%;
+        display: flex;
+        padding: 5px 20px; 
+    }
+    .divPreviewCarDestop {
+        width: 450px;
+        display: none;
+    }
+    
+    .containerColWidth {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .widthFormInputCol2 {
+        width: 100%;
+        margin: 0 0 0 30px ;
+    }
+    .widthFormInputColDownMonthPercent {
+        width: 100%;
+        margin: 0 0 0 30px ;
+    }
+    .boxHighlight {
+        width: 100%;
+        margin: 10px 20px;
+        font-size: 15px;
+        text-align: center;
+    }
+    .containerRowNoWrap {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+
+    .groupContact {
+        position: static;
+        display: flex;
+        justify-content: center;
+
+        // top: 0px;
+        // padding-right: 0px;
+        // border: 1px solid red;
+    }
+
+    .containerRowRight {
+        display: flex;
+        flex-direction: row;
+        // width: 200px;
+        // flex-wrap: wrap;
+        justify-content: flex-end;
+        // border: 1px solid red;
+        margin: 0 2px;
     }
 }

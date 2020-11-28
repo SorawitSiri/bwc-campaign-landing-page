@@ -33,12 +33,13 @@
         ul {
             margin-bottom: 10px;
             li {
-                justify-content: center;
+                // justify-content: center;
                 display: flex;
             }
         };
         .groupUl {
-            flex-basis: 100%;
+            flex-basis: 80%;
+            justify-content: left;
         }
     }  
     

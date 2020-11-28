@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { ReactComponent as Promotion } from './promotion.svg';
 import styles from './index.module.scss';
 
 import yaris2020 from './yaris2020.svg';
-import yarisAtiv2020 from './YarisAtiv2020.svg';
+// import yarisAtiv2020 from './YarisAtiv2020.svg';
 
 function currencyFormat(num) {
     num = parseFloat(num);
@@ -93,8 +92,6 @@ const CalculaterComponent = (props) => {
                         )
                     })}
                 </div>
-                
-                <Promotion className={styles.promotion}/>
             </div>
         </div>
     )
