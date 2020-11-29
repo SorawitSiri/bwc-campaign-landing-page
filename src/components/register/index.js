@@ -4,8 +4,11 @@ import styles from './index.module.scss';
 import { withFormik, Form, Field, ErrorMessage, useFormikContext } from 'formik';
 import axios from "axios";
 
-import yaris2020 from './yaris2020.svg';
-import yarisAtiv2020 from './YarisAtiv2020.svg';
+import yaris2020 from './yaris-2020.png';
+import yarisAtiv2020 from './ativ-2020.png';
+import revo2020 from './revo-2020.png';
+import revoSmart2020 from './revoSmart-2020.png';
+import revoDouble2020 from './revoDouble-2020.png';
 
 import dataToyotaYaris from '../home/yaris.json';
 import dataToyotaRevo from '../home_revo/revo.json';
@@ -13,19 +16,19 @@ import CONFIG_API from '../../config.json';
 
 const RegisterComponent = (props) => {
     const { values } = useFormikContext();
-    const imageYaris = [yaris2020, yarisAtiv2020, yarisAtiv2020];
+    const imageYaris = [yaris2020, yarisAtiv2020];
 
     const [typeCar, setTypeCar] = useState("yaris");
     useEffect(() => {
         var pathname = window.location.pathname;
-        if (pathname === "/toyota-revo") { setTypeCar("revo"); }
+        if (pathname === "/campaign/toyota-revo") { setTypeCar("revo"); }
         else { setTypeCar("yaris"); }
     }, [])
 
     
     return (
         <Form style={{width: "100%"}}>
-            <h2 style={{margin:"30px 20px 10px 20px"}}>ลงทะเบียนรับสิทธ์พิเศษ </h2>
+            <h2 style={{margin:"30px 20px 10px 20px", color: "white"}}>ลงทะเบียนรับสิทธ์พิเศษ </h2>
             <div className={styles.boxReister}>
                 <div className={styles.containerRow}>
                     {/* Name */}
@@ -82,8 +85,8 @@ const RegisterComponent = (props) => {
                     </>
                 }
                 <div className={styles.containerRowEnd}>
-                    <a href="#Calculate" className={styles.buttonCalInstallment} style={{margin: "0 10px", fontSize:"12px"}}><b>คำนวณเงินผ่อน</b></a>
-                    <button type="submit" className={styles.buttonRegister} style={{margin: "0 10px", fontSize:"12px"}}><b>ลงทะเบียน</b></button>
+                    <a href="#Calculate" className={styles.buttonCalInstallment} style={{margin: "0 10px", fontSize:"16px"}}><b>คำนวณเงินผ่อน</b></a>
+                    <button type="submit" className={styles.buttonRegister} style={{margin: "0 10px", fontSize:"16px"}}><b>ลงทะเบียน</b></button>
                 </div>
             </div>
         </Form>
@@ -109,7 +112,17 @@ const SelectCar = ({ values, name, options }) => {
                             <label className={styles.selectBoxOption} htmlFor={`${name}-${index + 1}`}>
                                 <div className={styles.containerRow}>
                                     <div className={styles.containerColCar}>
-                                        <img className={styles.chooseCar} src={list.imageCar} alt="Cars" />
+                                        {(() => {
+                                            switch (list.name) {
+                                                case "Yaris 2020": return <img src={yaris2020} alt="." className={styles.chooseCar} />;
+                                                case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." className={styles.chooseCar} />;
+                                                case "Revo Standard Cab 2020": return <img src={revo2020} alt="." className={styles.chooseCar} />;
+                                                case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." className={styles.chooseCar} />;
+                                                case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." className={styles.chooseCar} />;
+                                                default: return <img src={yaris2020} alt="." className={styles.chooseCar} />;
+                                            }
+                                        })()}
+                                        {/*<img className={styles.chooseCar} src={list.imageCar} alt="Cars" />*/}
                                     </div>
                                 </div>
                                 <div className={`${styles.containerRow} ${styles.center}`}>
@@ -162,7 +175,7 @@ const postRegister = (values) => {
     axios.post(CONFIG_API.API_HOST + `/api/register`, dataPost)
         .then(res => {
             console.log("Complete", res);
-            alert("ส่งข้อมูลสำเร็จแล้ว");
+            alert("เราได้รับข้อมูลของท่านแล้ว ทางทีมงานจะติดต่อกลับอย่างเร็วที่สุดค่ะ");
         }).catch(function (err) {
             console.log("err", err);
             console.log(err.response.data);
@@ -175,7 +188,7 @@ const postRegister = (values) => {
 
 var pathname = window.location.pathname;
 var dataToyota = {};
-if (pathname === "/toyota-revo") {
+if (pathname === "/campaign/toyota-revo") {
     dataToyota = dataToyotaRevo;
 }
 else {
@@ -198,15 +211,15 @@ export const EnhancedRegisterComponent = withFormik({
         window.data_customer.model = values.select_car;
         window.data_customer.model_no = "Yaris MC 2020";
         if (values.name_surname === "") {
-            errors.name_surname = "กรุณากรอกหน่อยนะคร้าบ";
+            errors.name_surname = "กรุณากรอก";
         }
 
         if (values.phone === "") {
-            errors.phone = "กรุณากรอกหน่อยนะคร้าบ";
+            errors.phone = "กรุณากรอก";
         }
 
         if (values.zip === "") {
-            errors.zip = "กรุณากรอกหน่อยนะคร้าบ";
+            errors.zip = "กรุณากรอก";
         }
         
         // console.log("data_customer Validate", window.data_customer);

@@ -3,13 +3,15 @@ import { withRouter } from 'react-router';
 import styles from './index.module.scss';
 import { withFormik, Form, Field, useFormikContext } from 'formik';
 
-import yaris2020 from './yaris2020.svg';
-import yarisAtiv2020 from './YarisAtiv2020.svg';
-import yaris2020_img from './yaris2020.png';
+import yaris2020 from './yaris-2020.png';
+import yarisAtiv2020 from './ativ-2020.png';
+import revo2020 from './revo-2020.png';
+import revoSmart2020 from './revoSmart-2020.png';
+import revoDouble2020 from './revoDouble-2020.png';
 
 import dataToyotaYaris from '../home/yaris.json';
 import dataToyotaRevo from '../home_revo/revo.json';
-// import { ReactComponent as IconArrow } from './icon-arrow.svg';
+import { ReactComponent as IconArrow } from './icon-arrow.svg';
 
 function currencyFormat(num) {
     num = parseFloat(num);
@@ -25,7 +27,7 @@ const CalculaterComponent = (props) => {
         var pathname = window.location.pathname;
         var dataToyota = {};
         
-        if (pathname === "/toyota-revo") {
+        if (pathname === "/campaign/toyota-revo") {
             dataToyota = dataToyotaRevo;
             if (values.series === dataToyota.model[0]) {
                 setFieldValue("model", dataToyota.yaris.subModel[0]);
@@ -51,7 +53,7 @@ const CalculaterComponent = (props) => {
                 setFieldValue("color", dataToyota.yarisAtiv.colorName[0]);
             }
         }
-        
+        // console.log("dataToyota.model[0]", dataToyota.model[0]);
     }, [values.series])
 
     // Compute Price
@@ -59,7 +61,7 @@ const CalculaterComponent = (props) => {
         const setPriceCar = () => {
             var pathname = window.location.pathname;
             var dataToyota = {};
-            if (pathname === "/toyota-revo") {
+            if (pathname === "/campaign/toyota-revo") {
                 dataToyota = dataToyotaRevo;
                 if (values.series === dataToyota.model[0] && values.model !== "0" && values.color !== "0") {
                     setMasterData(props.dataContent.yaris);
@@ -332,6 +334,7 @@ const CalculaterComponent = (props) => {
                     setFieldValue("price", "- บาท", false);
                 }
             }
+            // console.log(values.series);
         }
 
         const setInstallments = (_price) => {
@@ -386,6 +389,7 @@ const CalculaterComponent = (props) => {
             window.data_customer.finance_per_month = _installments_per_month;
             return _installments_per_month;
         }
+        
         setPriceCar();
 
         window.data_customer.finance_down_percent = values.installments_percent
@@ -433,13 +437,23 @@ const CalculaterComponent = (props) => {
                     <div className={`${styles.containerRowDiv} ${styles.divPreviewCarMobile}`} style={{flexGrow: 8}}>
                         <div className={styles.containerColWidth}>
                             <div className={`${styles.containerRowCenter}`}>
-                                <img src={yaris2020_img} alt="." className={styles.previewCar} />
+                                {/*<img src={values.series} alt="." className={styles.previewCar} />*/}
+                                {(() => {
+                                    switch (values.series) {
+                                        case "Yaris 2020": return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                        case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Standard Cab 2020": return <img src={revo2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." className={styles.previewCar} />;
+                                        default: return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                    }
+                                })()}
                             </div>
                         </div>
                     </div>
 
                     {/* Col #2 */}
-                    <div className={styles.containerRowDiv} style={{flexGrow: 1}}>
+                    <div className={styles.containerRowDiv2} style={{flexGrow: 1}}>
                         <div className={styles.containerColWidth}>
                             <div className={`${styles.widthFormInputCol2} ${styles.textPrice}` }>
                                 <h1 htmlFor="stickerConfiguration" className={styles.key}>ราคา</h1>
@@ -490,10 +504,21 @@ const CalculaterComponent = (props) => {
                     </div>
 
                     {/* Col #3 IMG CAR #2*/}
-                    <div className={`${styles.containerRowDiv} ${styles.divPreviewCarDestop}`} style={{flexGrow: 8}}>
+                    <div className={`${styles.containerRowDiv3} ${styles.divPreviewCarDestop}`} style={{flexGrow: 8}}>
                         <div className={styles.containerColWidth}>
                             <div className={`${styles.containerRowCenter}`}>
-                                <img src={yaris2020_img} alt="." className={styles.previewCar} />
+                                {/*img src={yarisAtiv2020} alt="." className={styles.previewCar} />*/}
+                                {(() => {
+                                    switch (values.series) {
+                                        case "Yaris 2020": return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                        case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Standard Cab 2020": return <img src={revo2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." className={styles.previewCar} />;
+                                        default: return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                    }
+                                })()}
+                                
                             </div>
                             <div className={styles.groupContact}>
                                 <div className={`${styles.containerRowRight}`}>
@@ -502,7 +527,7 @@ const CalculaterComponent = (props) => {
                                 <div className={`${styles.containerRowRight}`}>
                                     <a href={"#Register"} className={styles.boxHighlightRed}>ลงทะเบียน</a>
                                     <div className={styles.boxHighlightKeyOr}>หรือ</div>
-                                    <div className={styles.boxHighlightGreen}>Add line@</div>
+                                    <div className={styles.boxHighlightGreen}><a href={"https://line.me/R/ti/p/%40125irrov"}>ติดต่อผ่าน Line@</a></div>
                                 </div>
                             </div>
                         </div>
@@ -512,7 +537,7 @@ const CalculaterComponent = (props) => {
                     {/* <div className={`${styles.containerRowDiv} ${styles.divPreviewCarMobile}`} style={{flexGrow: 8}}>
                         <div className={styles.containerColWidth}>
                             <div className={`${styles.containerRowCenter}`}>
-                                <img src={yaris2020_img} alt="." className={styles.previewCar} />
+                                <img src={yaris2020} alt="." className={styles.previewCar} />
                             </div>
                         </div>
                     </div> */}
@@ -546,9 +571,20 @@ const SelectBox = ({ values, name, options }) => {
                             <Field name={name} type="radio" className={styles.selectBoxInput} value={list.name} id={`${name}-${lastIndex}`}
                                 checked={`${values[name]}` === `${list.name}` ? true : false}/>
                             <p className={styles.selectBoxInputText}>
-                                <img src={yaris2020_img} alt="." />
+                                {/*<img src={yaris2020} alt="." />*/}
+                                {(() => {
+                                    switch (list.name) {
+                                        case "Yaris 2020": return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                        case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Standard Cab 2020": return <img src={revo2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." className={styles.previewCar} />;
+                                        case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." className={styles.previewCar} />;
+                                        default: return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                    }
+                                })()}
                                 {list.name.substr(0, list.name.length-4)}
                             </p>
+                            <IconArrow className={styles.arrow} />
                         </div>
                     )
                 })}
@@ -565,7 +601,17 @@ const SelectBox = ({ values, name, options }) => {
                     return (
                         <li onClick={() => setFieldValue("showImageUrl", list.image, false)} key={`${lastIndex}`}>
                             <label className={styles.selectBoxOption} htmlFor={`${name}-${lastIndex}`}>
-                                <img src={list.image} alt="." width="60px" style={{ marginRight: "10px" }} />
+                                {/*<img src={list.image} alt="." width="60px" style={{ marginRight: "10px" }} />*/}
+                                {(() => {
+                                    switch (list.name) {
+                                        case "Yaris 2020": return <img src={yaris2020} alt="." width="60px" style={{ marginRight: "10px" }} />;
+                                        case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." width="60px" style={{ marginRight: "10px" }} />;
+                                        case "Revo Standard Cab 2020": return <img src={revo2020} alt="." width="60px" style={{ marginRight: "10px" }} />;
+                                        case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." width="60px" style={{ marginRight: "10px" }} />;
+                                        case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." width="60px" style={{ marginRight: "10px" }} />;
+                                        default: return <img src={yaris2020} alt="." width="60px" style={{ marginRight: "10px" }} />;
+                                    }
+                                })()}
                                 {list.name.substr(0, list.name.length-4)}
                             </label>
                         </li>
@@ -594,6 +640,7 @@ const SelectBoxNoImg = ({ values, name, options }) => {
                             <p className={styles.selectBoxInputText} style={ {margin: "0 0 0 0px"} }>
                                 {list.name}
                             </p>
+                            <IconArrow className={styles.arrow} />
                         </div>
                     )
                 })}
@@ -626,7 +673,7 @@ const SelectBoxNoImg = ({ values, name, options }) => {
 
 var pathname = window.location.pathname;
 var dataToyota = {};
-if (pathname === "/toyota-revo") {
+if (pathname === "/campaign/toyota-revo") {
     dataToyota = dataToyotaRevo;
 }
 else {

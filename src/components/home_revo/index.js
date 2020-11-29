@@ -8,6 +8,7 @@ import CheckInformationComponent from "../check_information";
 import PerformanceComponent from "../preformance";
 import FooterComponant from "../footer";
 import ReactGA from 'react-ga';
+import Helmet from 'react-helmet';
 import styles from './index.module.scss';
 
 // Data of Toyota Yaris
@@ -15,11 +16,11 @@ import RevoData from './revo.json';
 import remoPomote from './promotion_revo.gif';
 // import yarisPomote from './pomotion_yaris.gif';
 
-const ga = 'G-PBBL9S80RC';
-ReactGA.initialize(ga);
+//const ga = 'G-PBBL9S80RC';
+//ReactGA.initialize(ga);
 // Disable file protocol checking (so that GA will work on Android devices)
-ReactGA.ga('set', 'checkProtocolTask', null);
-ReactGA.pageview('/toyota-revo');
+//ReactGA.ga('set', 'checkProtocolTask', null);
+//ReactGA.pageview('/toyota-revo');
 
 //global variable
 window.data_customer = {
@@ -39,8 +40,12 @@ window.data_customer = {
 };
 
 const HomeRevoComponent = () => {
+    var defaultTitle = 'Toyota Hilux Revo - ซื้อ Revo ทุกรุ่นวันนี้ ออกรถง่ายเพียง 800 บาท | Barawindsor';
     return (
         <>
+        <Helmet>
+            <title>{defaultTitle}</title>
+        </Helmet>
             <main>
                 {/* Banner */}
                 <img src={remoPomote} alt="." className={styles.banner} />

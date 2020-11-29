@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from "react";
 import styles from './index.module.scss';
 
-import yaris2020 from './yaris2020.svg';
-// import yarisAtiv2020 from './YarisAtiv2020.svg';
+import yaris2020 from './yaris-2020.png';
+import yarisAtiv2020 from './ativ-2020.png';
+import revo2020 from './revo-2020.png';
+import revoSmart2020 from './revoSmart-2020.png';
+import revoDouble2020 from './revoDouble-2020.png';
 
 function currencyFormat(num) {
-    num = parseFloat(num);
+    num = Math.floor(parseFloat(num));
     return (num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'))
 }
 
@@ -17,7 +20,7 @@ const CalculaterComponent = (props) => {
 
     useEffect(() => {
         var pathname = window.location.pathname;
-        if (pathname === "/toyota-revo") {
+        if (pathname === "/campaign/toyota-revo") {
             if(series === "Revo Double Cab 2020") {
                 // Revo Double Cab 
                 setModelCar(props.dataContent.doubleCab.subModel);
@@ -60,7 +63,16 @@ const CalculaterComponent = (props) => {
                             return (
                                 <div className={`${styles.btnShippingOptionModel} ${series===props.dataContent.model[index] && styles.active }`} onClick={() => setSeries(props.dataContent.model[index])}>
                                     <div className={styles.containerRowNoWrap}>
-                                        <img src={yaris2020} alt="." className={styles.previewCar} />
+                                        {(() => {
+                                            switch (props.dataContent.model[index]) {
+                                                case "Yaris 2020": return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                                case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." className={styles.previewCar} />;
+                                                case "Revo Standard Cab 2020": return <img src={revo2020} alt="." className={styles.previewCar} />;
+                                                case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." className={styles.previewCar} />;
+                                                case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." className={styles.previewCar} />;
+                                                default: return <img src={yaris2020} alt="." className={styles.previewCar} />;
+                                            }
+                                        })()}
                                         <div className={styles.containerColNoWrap}>
                                             <h3 style={{fontSize:"18px", fontWeight:"900"}}>{_modelCar}</h3>
                                             <p style={{fontSize:"16px"}}>เริ่มต้น {currencyFormat(props.dataContent.priceStart[index])} บาท</p>
@@ -74,19 +86,23 @@ const CalculaterComponent = (props) => {
 
                 <h3 style={{margin:"20px 0"}}>โมเดล</h3>
                 <div className={styles.containerRow}>
-                    <img src={yaris2020} alt="." className={styles.previewCarModel} />
+                    {/* <img src={yaris2020} alt="." className={styles.previewCarModel} /> */}
                     {modelCar.map((_modelCar, index) => {
                         return (
+                            <div className={styles.containerGrid}>
                             <div key={index} className={`${styles.btnShippingOptionSubModel} ${model===_modelCar ? styles.active:styles.deactive }`} onClick={() => setModel(_modelCar)}>
-                                <div className={styles.containerRow}>
-                                    <div className={`${styles.containerColNoWrap} ${styles.modelCar}`} style={{padding:"0px 10px"}}>
-                                        <h1 style={{fontSize:"28px", margin:"0px"}}>{_modelCar}</h1>
-                                        <div className={styles.containerRow}>
-                                            <p style={{fontSize: "16px"}}>{currencyFormat(price[index])} / </p>
-                                            <qd style={{fontSize: "16px"}}>&nbsp;เริ่มต้น 10,106 ต่อเดือน</qd>
+                                
+                                    <div className={styles.containerRow}>
+                                        <div className={`${styles.containerColNoWrap} ${styles.modelCar}`} style={{padding:"0px 10px"}}>
+                                            <h1 style={{fontSize:"28px", margin:"0px"}}>{_modelCar}</h1>
+                                            <div className={styles.containerRow}>
+                                                <p style={{fontSize: "16px"}}>{currencyFormat(price[index])} บาท / </p>
+                                                <qd style={{fontSize: "16px"}}>&nbsp;เริ่มต้น 10,106 ต่อเดือน</qd>
+                                            </div>
+                                            <a href="#Calculate" type="button" className={styles.buttonForCal}>คำนวณเงินผ่อน</a>
                                         </div>
-                                        <a href="#Calculate" type="button" className={styles.buttonForCal}>คำนวณเงินผ่อน</a>
                                     </div>
+
                                 </div>
                             </div>
                         )

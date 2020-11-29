@@ -8,6 +8,7 @@ import CheckInformationComponent from "../check_information";
 import PerformanceComponent from "../preformance";
 import FooterComponant from "../footer";
 import ReactGA from 'react-ga';
+import Helmet from 'react-helmet';
 import styles from './index.module.scss';
 
 // Data of Toyota Yaris
@@ -16,11 +17,11 @@ import YarisData from './yaris.json';
 // import remoPomote from './pomotion_revo.gif';
 import yarisPomote from './promotion_yaris.gif';
 
-const ga = 'G-PBBL9S80RC';
-ReactGA.initialize(ga);
+//const ga = 'G-PBBL9S80RC';
+//ReactGA.initialize(ga);
 // Disable file protocol checking (so that GA will work on Android devices)
-ReactGA.ga('set', 'checkProtocolTask', null);
-ReactGA.pageview('/toyota-yaris');
+//ReactGA.ga('set', 'checkProtocolTask', null);
+//ReactGA.pageview('/toyota-yaris');
 
 //global variable
 window.data_customer = {
@@ -40,8 +41,12 @@ window.data_customer = {
 };
 
 const HomeComponent = () => {
+    var defaultTitle = 'Toyota Yaris - ซื้อ YARIS/ATIV ทุกรุ่นวันนี้ ออกรถง่ายเพียง 800 บาท | Barawindsor';
     return (
         <>
+        <Helmet>
+            <title>{defaultTitle}</title>
+        </Helmet>
             <main>
                 {/* Banner */}
                 <img src={yarisPomote} alt="." className={styles.banner} />

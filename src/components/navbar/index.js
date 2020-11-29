@@ -4,8 +4,11 @@ import styles from './index.module.scss';
 import { ReactComponent as Logo } from './logo.svg';
 
 import { Link } from "react-router-dom";
-import yaris2020 from '../register/yaris2020.svg';
-import YarisAtiv2020 from '../register/YarisAtiv2020.svg';
+
+import yaris2020 from '../register/yaris-2020.png';
+import yarisAtiv2020 from '../register/ativ-2020.png';
+import revo2020 from '../register/revo-2020.png';
+
 import useWindowSize from '../../hooks/useWindowSize';
 
 const NavBarComponent = () => {
@@ -46,12 +49,12 @@ const NavBarComponent = () => {
                             <div className={styles.boxCar}>
                                 <h3>แคมเปญ</h3>
                                 <div className={`${styles.containerRow}`}>
-                                    <a href="/toyota-yaris">
+                                    <a href="../campaign/toyota-yaris">
                                         <img className={styles.preview} src={yaris2020} alt="yaris2020" />
                                         <p>Yaris/Ativ</p>
                                     </a>
-                                    <a href="/toyota-revo">
-                                        <img className={styles.preview} src={yaris2020} alt="YarisAtiv2020" />
+                                    <a href="../campaign/toyota-revo">
+                                        <img className={styles.preview} src={yarisAtiv2020} alt="YarisAtiv2020" />
                                         <p>Revo</p>
                                     </a>
                                 </div>
@@ -66,8 +69,8 @@ const NavBarComponent = () => {
                 <div className={styles.topnav} id={"myLinks"} >
                         <a href="http://www.toyotabara.com">หน้าหลัก</a>
                         <a href="http://www.toyotabara.com/home/promotionbara">โปรโมชั่น</a>
-                        <Link to="/toyota-yaris" onClick={hideBurger}>แคมเปญ Yaris/Ativ</Link>
-                        <Link to="/toyota-revo" onClick={hideBurger}>แคมเปญ Revo</Link>
+                        <Link to="../campaign/toyota-yaris" onClick={hideBurger}>แคมเปญ Yaris/Ativ</Link>
+                        <Link to="../campaign/toyota-revo" onClick={hideBurger}>แคมเปญ Revo</Link>
                         <a href="http://www.toyotabara.com/home/contact">ติดต่อเรา</a>
                 </div>
                 
