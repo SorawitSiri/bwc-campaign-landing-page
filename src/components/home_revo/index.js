@@ -7,7 +7,7 @@ import CalculaterComponent from "../calculater";
 import CheckInformationComponent from "../check_information";
 import PerformanceComponent from "../preformance";
 import FooterComponant from "../footer";
-import ReactGA from 'react-ga';
+// import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';
 import styles from './index.module.scss';
 
@@ -43,9 +43,9 @@ const HomeRevoComponent = () => {
     var defaultTitle = 'Toyota Hilux Revo - ซื้อ Revo ทุกรุ่นวันนี้ ออกรถง่ายเพียง 800 บาท | Barawindsor';
     return (
         <>
-        <Helmet>
-            <title>{defaultTitle}</title>
-        </Helmet>
+            <Helmet>
+                <title>{defaultTitle}</title>
+            </Helmet>
             <main>
                 {/* Banner */}
                 <img src={remoPomote} alt="." className={styles.banner} />
@@ -86,12 +86,5 @@ const HomeRevoComponent = () => {
         </>
     )
 };
-{/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBBL9S80RC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-PBBL9S80RC');
-</script> */}
 export default HomeRevoComponent;

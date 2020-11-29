@@ -223,7 +223,7 @@ export const EnhancedRegisterComponent = withFormik({
         }
         
         // console.log("data_customer Validate", window.data_customer);
-        console.log("values.is_company Validate", values.is_company);
+        // console.log("values.is_company Validate", values.is_company);
         return errors;
     },
     handleSubmit: (values, { props }) => {

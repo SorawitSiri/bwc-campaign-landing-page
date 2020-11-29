@@ -7,7 +7,7 @@ import CalculaterComponent from "../calculater";
 import CheckInformationComponent from "../check_information";
 import PerformanceComponent from "../preformance";
 import FooterComponant from "../footer";
-import ReactGA from 'react-ga';
+// import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';
 import styles from './index.module.scss';
 
@@ -88,12 +88,5 @@ const HomeComponent = () => {
         </>
     )
 };
-{/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBBL9S80RC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-PBBL9S80RC');
-</script> */}
 export default HomeComponent;
