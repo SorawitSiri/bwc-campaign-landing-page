@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  bwc-frontend:
+    build: .
+    image: bwc-frontend
+    container_name: bwc-frontend
+    ports:
+      - "9000:3000"

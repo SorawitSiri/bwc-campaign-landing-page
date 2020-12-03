@@ -15,17 +15,69 @@ import dataToyotaRevo from '../home_revo/revo.json';
 import CONFIG_API from '../../config.json';
 
 const RegisterComponent = (props) => {
-    const { values } = useFormikContext();
+    const { values, setFieldValue } = useFormikContext();
     const imageYaris = [yaris2020, yarisAtiv2020];
 
     const [typeCar, setTypeCar] = useState("yaris");
     useEffect(() => {
         var pathname = window.location.pathname;
-        if (pathname === "/campaign/toyota-revo") { setTypeCar("revo"); }
+        if (pathname === "/toyota-revo") { setTypeCar("revo"); }
         else { setTypeCar("yaris"); }
     }, [])
 
+    const SelectCar = ({ values, name, options }) => {
+        return (
+            <div className={styles.containerCol}>
+                {options.map((list, index) => {
+                    return (
+                        <div className={`${styles.boxRadiusSmall} ${styles.selectBoxInput}`} key={`${name}-${index + 1}`}>
+                            <Field name={name} type="radio" value={list.value} id={`${name}-${index + 1}`}
+                                checked={`${values[name]}` === `${list.value}` ? true : false} />
+                        </div>
+                    )
+                })}
     
+                <ul className={`${styles.containerNoRow}`}>
+                    {options.map((list, index) => {
+                        return (
+                            <li onClick={() => setFieldValue("select_car", list.value, false)} className={`${styles.optionShipping} ${styles.boxRadiusSmall} ${`${values.select_car}` === `${list.value}` ? styles.active : styles.deactive}`}  key={`${name}-${index + 1}`}>
+                                <label className={styles.selectBoxOption} htmlFor={`${name}-${index + 1}`}>
+                                    <div className={styles.containerRow}>
+                                        <div className={styles.containerColCar}>
+                                            {(() => {
+                                                switch (list.name) {
+                                                    case "Yaris 2020": return <img src={yaris2020} alt="." className={styles.chooseCar} />;
+                                                    case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." className={styles.chooseCar} />;
+                                                    case "Revo Standard Cab 2020": return <img src={revo2020} alt="." className={styles.chooseCar} />;
+                                                    case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." className={styles.chooseCar} />;
+                                                    case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." className={styles.chooseCar} />;
+                                                    default: return <img src={yaris2020} alt="." className={styles.chooseCar} />;
+                                                }
+                                            })()}
+                                            {/*<img className={styles.chooseCar} src={list.imageCar} alt="Cars" />*/}
+                                        </div>
+                                    </div>
+                                    <div className={`${styles.containerRow} ${styles.center}`}>
+                                        <div className={styles.boxNameCar}>
+                                            {list.name}
+                                        </div>
+                                    </div>
+                                    <div className={`${styles.containerRow} ${styles.center}`}>
+                                        <h4 className={`${styles.selectCar} ${`${values.select_car}` === `${list.value}` ? styles.activeHere : styles.deactiveHere}`} >
+                                            คุณเลือกอันนี้
+                                        </h4>
+                                    </div>
+                                    
+                                </label>
+                            </li>
+                        )
+                    })}
+                </ul>
+    
+            </div>
+        )
+    };    
+
     return (
         <Form style={{width: "100%"}}>
             <h2 style={{margin:"30px 20px 10px 20px", color: "white"}}>ลงทะเบียนรับสิทธ์พิเศษ </h2>
@@ -93,58 +145,6 @@ const RegisterComponent = (props) => {
     )
 };
 
-const SelectCar = ({ values, name, options }) => {
-    return (
-        <div className={styles.containerCol}>
-            {options.map((list, index) => {
-                return (
-                    <div className={`${styles.boxRadiusSmall} ${styles.selectBoxInput}`} key={`${name}-${index + 1}`}>
-                        <Field name={name} type="radio" value={list.value} id={`${name}-${index + 1}`}
-                            checked={`${values[name]}` === `${list.value}` ? true : false} />
-                    </div>
-                )
-            })}
-
-            <ul className={`${styles.containerNoRow}`}>
-                {options.map((list, index) => {
-                    return (
-                        <li className={`${styles.optionShipping} ${styles.boxRadiusSmall} ${`${values.select_car}` === `${list.value}` ? styles.active : styles.deactive}`}  key={`${name}-${index + 1}`}>
-                            <label className={styles.selectBoxOption} htmlFor={`${name}-${index + 1}`}>
-                                <div className={styles.containerRow}>
-                                    <div className={styles.containerColCar}>
-                                        {(() => {
-                                            switch (list.name) {
-                                                case "Yaris 2020": return <img src={yaris2020} alt="." className={styles.chooseCar} />;
-                                                case "Yaris Ativ 2020": return <img src={yarisAtiv2020} alt="." className={styles.chooseCar} />;
-                                                case "Revo Standard Cab 2020": return <img src={revo2020} alt="." className={styles.chooseCar} />;
-                                                case "Revo Smart Cab 2020": return <img src={revoSmart2020} alt="." className={styles.chooseCar} />;
-                                                case "Revo Double Cab 2020": return <img src={revoDouble2020} alt="." className={styles.chooseCar} />;
-                                                default: return <img src={yaris2020} alt="." className={styles.chooseCar} />;
-                                            }
-                                        })()}
-                                        {/*<img className={styles.chooseCar} src={list.imageCar} alt="Cars" />*/}
-                                    </div>
-                                </div>
-                                <div className={`${styles.containerRow} ${styles.center}`}>
-                                    <div className={styles.boxNameCar}>
-                                        {list.name}
-                                    </div>
-                                </div>
-                                <div className={`${styles.containerRow} ${styles.center}`}>
-                                    <h4 className={`${styles.selectCar} ${`${values.select_car}` === `${list.value}` ? styles.activeHere : styles.deactiveHere}`} >
-                                        คุณเลือกอันนี้
-                                    </h4>
-                                </div>
-                                
-                            </label>
-                        </li>
-                    )
-                })}
-            </ul>
-
-        </div>
-    )
-};
 
 const postRegister = (values) => {
     var _finance_model = window.data_customer.finance_model;
@@ -188,7 +188,7 @@ const postRegister = (values) => {
 
 var pathname = window.location.pathname;
 var dataToyota = {};
-if (pathname === "/campaign/toyota-revo") {
+if (pathname === "/toyota-revo") {
     dataToyota = dataToyotaRevo;
 }
 else {
@@ -223,7 +223,7 @@ export const EnhancedRegisterComponent = withFormik({
         }
         
         // console.log("data_customer Validate", window.data_customer);
-        // console.log("values.is_company Validate", values.is_company);
+        console.log("values.is_company Validate", values.is_company);
         return errors;
     },
     handleSubmit: (values, { props }) => {
