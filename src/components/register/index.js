@@ -21,7 +21,7 @@ const RegisterComponent = (props) => {
     const [typeCar, setTypeCar] = useState("yaris");
     useEffect(() => {
         var pathname = window.location.pathname;
-        if (pathname === "/toyota-revo") { setTypeCar("revo"); }
+        if (pathname === "/campaign/toyota-revo") { setTypeCar("revo"); }
         else { setTypeCar("yaris"); }
     }, [])
 
@@ -127,11 +127,9 @@ const RegisterComponent = (props) => {
                 {typeCar === "revo" &&
                     <>
                         <div className={styles.containerRow}>
-                            <div className={` ${styles.carSelect}`}>
-                                <p>ลูกค้าองค์กร</p>
-                            </div>
                             <div style={{padding: "2px 10px"}} >
                                 <Field name="is_company" type="checkbox" value="1" />
+                                <p style={{display: "inline-block", marginLeft: "6px"}}>ลูกค้าองค์กร</p>
                             </div>
                         </div>
                     </>
@@ -180,7 +178,7 @@ const postRegister = (values) => {
             console.log("err", err);
             console.log(err.response.data);
             console.log(err.response.data.error);
-            alert("ส่งข้อมูลไม่สำเร็จ");
+            alert("ส่งข้อมูลไม่สำเร็จ: ถ้าเกิดเหตุขัดข้องกรุณาติดต่อ 02-095-3222");
         })
     // console.log("resPOST",resPOST.data);
 }
@@ -188,7 +186,7 @@ const postRegister = (values) => {
 
 var pathname = window.location.pathname;
 var dataToyota = {};
-if (pathname === "/toyota-revo") {
+if (pathname === "/campaign/toyota-revo") {
     dataToyota = dataToyotaRevo;
 }
 else {
@@ -205,6 +203,7 @@ export const EnhancedRegisterComponent = withFormik({
     }),
     validate: values => {
         const errors = {};
+        console.log("values.select_car", values.select_car)
         window.data_customer.name = values.name_surname;
         window.data_customer.mobile_no = values.phone;
         window.data_customer.zipcode = values.zip;
@@ -217,13 +216,25 @@ export const EnhancedRegisterComponent = withFormik({
         if (values.phone === "") {
             errors.phone = "กรุณากรอก";
         }
+        else {
+            var _isNumber = values.phone.match(/^[0-9]+$/);
+            if (_isNumber === null) { 
+                errors.phone = "ตัวเลขเท่านั้น";
+            }
+        }
 
         if (values.zip === "") {
             errors.zip = "กรุณากรอก";
         }
+        else {
+            var _isNumber = values.phone.match(/^[0-9]+$/);
+            if (_isNumber === null) { 
+                errors.phone = "ตัวเลขเท่านั้น";
+            }
+        }
         
         // console.log("data_customer Validate", window.data_customer);
-        console.log("values.is_company Validate", values.is_company);
+        // console.log("values.is_company Validate", values.is_company);
         return errors;
     },
     handleSubmit: (values, { props }) => {

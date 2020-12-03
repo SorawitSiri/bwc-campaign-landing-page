@@ -27,7 +27,7 @@ const CalculaterComponent = (props) => {
         var pathname = window.location.pathname;
         var dataToyota = {};
         
-        if (pathname === "/toyota-revo") {
+        if (pathname === "/campaign/toyota-revo") {
             dataToyota = dataToyotaRevo;
             if (values.series === dataToyota.model[0]) {
                 setFieldValue("model", dataToyota.yaris.subModel[0]);
@@ -53,7 +53,7 @@ const CalculaterComponent = (props) => {
                 setFieldValue("color", dataToyota.yarisAtiv.colorName[0]);
             }
         }
-        
+        // console.log("dataToyota.model[0]", dataToyota.model[0]);
     }, [values.series])
 
     // Compute Price
@@ -61,7 +61,7 @@ const CalculaterComponent = (props) => {
         const setPriceCar = () => {
             var pathname = window.location.pathname;
             var dataToyota = {};
-            if (pathname === "/toyota-revo") {
+            if (pathname === "/campaign/toyota-revo") {
                 dataToyota = dataToyotaRevo;
                 if (values.series === dataToyota.model[0] && values.model !== "0" && values.color !== "0") {
                     setMasterData(props.dataContent.yaris);
@@ -334,7 +334,7 @@ const CalculaterComponent = (props) => {
                     setFieldValue("price", "- บาท", false);
                 }
             }
-            console.log(values.series);
+            // console.log(values.series);
         }
 
         const setInstallments = (_price) => {
@@ -673,7 +673,7 @@ const SelectBoxNoImg = ({ values, name, options }) => {
 
 var pathname = window.location.pathname;
 var dataToyota = {};
-if (pathname === "/toyota-revo") {
+if (pathname === "/campaign/toyota-revo") {
     dataToyota = dataToyotaRevo;
 }
 else {
